@@ -1,0 +1,83 @@
+commit 0a86ea2e92c0fc9519f93423aeefd30334c71cd2
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 16:00:58 2019 +0200
+
+    muutoksia eka.txt ja kolmas.txt
+
+ eka.txt    | 5 +++--
+ kolmas.txt | 1 +
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+commit e55783fbe44246d8eb0b692775dfc19c87a637ce
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 15:58:25 2019 +0200
+
+    tiedosto.txt vaihdettu eka.txt
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 5b6fd3ed68932f46248e6523cbed7cf515edd1b5
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 15:57:07 2019 +0200
+
+    toinen.txt positettu
+
+ toinen.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a3f5ecfe26d9156942a903376381482e6f6d4591
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 15:40:23 2019 +0200
+
+    ja vielä lisää lisäyksiä
+
+ tiedosto.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 5203e87a9f78ad6d763ebeed9e38cdd90918e1de
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 15:38:52 2019 +0200
+
+    tiedost.txt lisäys
+
+ tiedosto.txt | 629 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 629 insertions(+)
+
+commit e99ccd1a9723870c1185416d250856d587c32bdd
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 09:55:55 2019 +0200
+
+    stuff lisatty
+
+ stuff/jokintiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit d41a2db5f0795cb276164ed018d4d52d05f78a5e
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 06:23:04 2019 +0200
+
+    kolmas.txt muutos
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 5023633c4542e0cbdf00f0561845eec401e0a1a5
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 05:58:21 2019 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 2ec4314bee6fd52bd6fbbf6be7e442a6bf7eac71
+Author: LKonsta <komppa.lehto@gmail.com>
+Date:   Tue Mar 19 02:32:21 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
