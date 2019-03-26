@@ -1,6 +1,6 @@
-# work hours
+# Tyo Tunnit
 
-| day  | time | worked on | 
+| paiva  | aika | tekemässä | 
 | :-:  | :--- | :-------- |
-| 21.3.| 3    | JUnit practice |
-| 23.3.| 2| Specifications |
+| 26.3.| 3    | JUnit harjoittelu |
+| 26.3.| 2  | dokumentaatio ja java säätöä |
