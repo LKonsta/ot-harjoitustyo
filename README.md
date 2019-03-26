@@ -13,3 +13,5 @@ Tänne tulee selitys siitä mitä tämä **projekti** pitää *sisällään*.
 Viikolla 2 en valitettavasti saanut mavenia toimimaan.
  
 [jacoco:reportti](https://github.com/LKonsta/ot-harjoitustyo/blob/master/laskarit/viikko2/jacoco:report.png)
+
+[Tetris määrittely](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/maarittelydokumentti.md)
