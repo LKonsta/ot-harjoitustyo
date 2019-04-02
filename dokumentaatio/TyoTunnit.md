@@ -4,3 +4,4 @@
 | :-:  | :--- | :-------- |
 | 26.3.| 2  | dokumentaatio ja java säätöä |
 | 2.4. | 8  | Tetris sovellus 0.1 |
+| 2.4. | 1  | Testi ja dokumentaatio säätöä |
