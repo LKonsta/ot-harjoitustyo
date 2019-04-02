@@ -1,17 +1,21 @@
-# Ohjelmistotekniikka_Projekti
-
-## viikko 1
+# Ultimate 2D Tetris
 
 Tänne tulee selitys siitä mitä tämä **projekti** pitää *sisällään*.
 
-[Linkki komentorivi.txt](https://github.com/LKonsta/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+## Ultimate 2D Tetriksen toimivuus
 
-[Linkki gitlog.txt](https://github.com/LKonsta/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+Talla hetkellä voi pelin aloittaa jolloin ohjelma luo 400-800 kokoisen ikkunan jossa pystyy liikuttamaan yhtä palikkaa kerrallaan. palikka tippuu automaattisesti ja sillä on törmäys tarkistukset seiniin ja muihin palikoihin. Kun palikkaa ei voi enään liikuttaa tallentuu se taulukkoon joka vastaa 10-20 kokoista pelikenttää. Tetriksestä tunnettu täsien rivien poisto on yksi tämän hetkisistä toiminnallisuuksista.
 
-## viikko 2
+palikan liikutus tapahtuu nuoli näppäimillä.
 
-Viikolla 2 en valitettavasti saanut mavenia toimimaan.
- 
-[jacoco:reportti](https://github.com/LKonsta/ot-harjoitustyo/blob/master/laskarit/viikko2/jacoco:report.png)
+<code> mvn compile exec:java -Dexec.mainClass=ultimate_2d_tetris.ot.harjoitustyo.Main </code> Koodi jolla voi mavenin avulla avata sovelluksen. 
+
+
+
+## Dokumentaatio
 
 [Tetris määrittely](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/maarittelydokumentti.md)
+
+[Työaikakiranpito](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/TyoTunnit.md)
+
+[Testidokumentaatio](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)

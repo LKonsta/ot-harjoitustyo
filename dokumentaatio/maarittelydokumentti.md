@@ -14,9 +14,10 @@ Kaikkien tunteman tetriksen tarkoitus on olla peli, joka tuo iloa kaikille pelaa
 
 ## Toiminnallisuus
 
-+ pelikenttä kooltaan 10 * 20
++ ~~pelikenttä kooltaan 10 * 20~~
++ ~~taysien rivien poisto~~
 + 4 laatikon palikoiden eri muodostuminen
-+ rivin tunnistus
++ ~~rivin tunnistus~~
 + palikan muistiin laitto
 + palkoiden kääntö
 + highscore muistissa 

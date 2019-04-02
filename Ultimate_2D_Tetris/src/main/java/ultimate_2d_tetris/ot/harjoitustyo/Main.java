@@ -12,14 +12,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-
 public class Main extends Application {
 
-    
-
-    
-
-    
+    public Scene getScene() {
+        return scene;
+    }
+   
     public class Kuutio extends Rectangle {
         
         int x;
@@ -64,6 +62,15 @@ public class Main extends Application {
                 }
             }
         }
+        
+//        private void liikuPohja() {
+//            for (int m = (int) kuutio.getTranslateY()/40;m>0;m--) {
+//                if (kentta[m][(int) kuutio.getTranslateX()/40] != 0) {
+//                    setTranslateY(m*40);
+//                    y=m*40;
+//                }
+//            }
+//        }
 
         private boolean TormaaAlas() {
             return kentta[y / 40 + 1][x / 40] != 0;
@@ -85,6 +92,8 @@ public class Main extends Application {
             return kentta[y / 40][x / 40 + 1] != 0;
         }
 
+        
+
     }
     
     private void uusiKuuti() {
@@ -92,11 +101,12 @@ public class Main extends Application {
         paneeli.getChildren().add(kuutio);
     }
     
+    Scene scene;
     
     @Override
     public void start(Stage naytto) throws Exception {
-        naytto.setTitle("Ultimate 2d Tetris");
-        Scene scene = new Scene(Piirto());
+        naytto.setTitle("Ultimate 2D Tetris");
+       scene = new Scene(Piirto());
         
         scene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
@@ -109,6 +119,9 @@ public class Main extends Application {
                 case DOWN:
                     kuutio.liikuAlas();
                     break;
+//                case SPACE:
+//                    kuutio.liikuPohja();
+//                    break;
             }
         });
         
