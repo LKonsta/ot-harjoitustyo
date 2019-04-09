@@ -12,6 +12,8 @@ palikan liikutus tapahtuu nuoli näppäimillä. palikan pyörittäminen tapahtuu
 
 Koodi jolla voi mavenin avulla avata sovelluksen. 
 
+Tällähetkellä sovelluksessa on epätoimivuus joka liittyy rivien poistossa tapahtuvaan rivien liikutukseen. Kun tarpeeksi pitkään on pelattu tallentaa alkaa peli tallentaa palikoiden sijainteja toisiksi ylimmälle riville.
+
 ## Dokumentaatio
 
 [Tetris määrittely](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/maarittelydokumentti.md)
