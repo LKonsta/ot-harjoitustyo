@@ -1,6 +1,8 @@
 package ultimate_2d_tetris.ot.harjoitustyo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
@@ -13,92 +15,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
+    Random r = new Random();
+    Color[] varit = {Color.YELLOW, Color.TEAL, Color.GREEN, Color.RED, Color.ORANGE, Color.BLUE, Color.PURPLE};
+    
     public Scene getScene() {
         return scene;
     }
    
-    public class Kuutio extends Rectangle {
-        
-        int x;
-        int y;
-        
-        Kuutio(int x, int y, int w, int h, Color vari) {
-            super(w, h, vari);
-            
-            this.x = x;
-            this.y = y;
-
-            setTranslateX(x);
-            setTranslateY(y);
-        }
-
-        void liikuAlas() {
-            if (getTranslateY() + 40 < 800 && !(TormaaAlas())) {
-                setTranslateY(getTranslateY() + 40);
-                y+=40;
-            } else {
-                paneeli.getChildren().remove(Kuutio.this);
-                kentta[(int) getTranslateY() / 40][(int) getTranslateX() / 40] = 1;
-//                kentta[(int) getTranslateY() / 40 -1][(int) getTranslateX() / 40] = 1;
-                uusiKuuti();
-            }
-        }
-
-        void liikuVasen() {
-            if (getTranslateX()-40 >= 0) {
-                if (!(TormaaVasen())) {
-                    setTranslateX(getTranslateX() - 40);
-                    x-=40;
-                }
-            }
-        }
-
-        void liikuOikea() {
-            if (getTranslateX()+40 < 400 ) {
-                if (!(TormaaOikea())) {
-                    setTranslateX(getTranslateX() + 40);
-                    x+=40;
-                }
-            }
-        }
-        
-//        private void liikuPohja() {
-//            for (int m = (int) kuutio.getTranslateY()/40;m>0;m--) {
-//                if (kentta[m][(int) kuutio.getTranslateX()/40] != 0) {
-//                    setTranslateY(m*40);
-//                    y=m*40;
-//                }
-//            }
-//        }
-
-        private boolean TormaaAlas() {
-            return kentta[y / 40 + 1][x / 40] != 0;
-        }
-        
-        private boolean TormaaVasen() {
-            if (x == 0) {
-                return true;
-            }
-            
-            return kentta[y/40][x/40 -1] != 0;
-        }
-        
-        private boolean TormaaOikea() {
-            
-            if (x == 360) {
-                return true;
-            }
-            return kentta[y / 40][x / 40 + 1] != 0;
-        }
-
-        
-
-    }
-    
-    private void uusiKuuti() {
-        kuutio = new Kuutio(200, 0, 40, 40, Color.BLACK);
-        paneeli.getChildren().add(kuutio);
+    private void uusiPalikka() {
+        palikka = new Palikka(3, 0, varit, kentta, r.nextInt(7));
+        paneeli.getChildren().addAll(palikka.getKuutiot());
     }
     
     Scene scene;
@@ -106,18 +32,28 @@ public class Main extends Application {
     @Override
     public void start(Stage naytto) throws Exception {
         naytto.setTitle("Ultimate 2D Tetris");
-       scene = new Scene(Piirto());
+        scene = new Scene(Piirto());
         
         scene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case LEFT:
-                    kuutio.liikuVasen();
+                    palikka.liikuVasen();
                     break;
                 case RIGHT:
-                    kuutio.liikuOikea();
+                    palikka.liikuOikea();
                     break;
                 case DOWN:
-                    kuutio.liikuAlas();
+                    palikka.liikuAlas();
+                    break;
+                case X:
+                    paneeli.getChildren().removeAll(palikka.getKuutiot());
+                    palikka.pyoritaOikea();
+                    paneeli.getChildren().addAll(palikka.getKuutiot());
+                    break;
+                case Z:
+                    paneeli.getChildren().removeAll(palikka.getKuutiot());
+                    palikka.pyoritaVasen();
+                    paneeli.getChildren().addAll(palikka.getKuutiot());
                     break;
 //                case SPACE:
 //                    kuutio.liikuPohja();
@@ -129,15 +65,22 @@ public class Main extends Application {
         naytto.show();
         
     }
-    private int[][] kentta;
-    public Kuutio kuutio;
-    private int odotus = 1; 
+    
+    private Kentta kentta;
+    private Palikka palikka;
+    private int odotus = 0; 
+    private ArrayList<Rectangle>[] piirrettyKentta  = new ArrayList[20];
     
     private Parent Piirto() {
-        kentta = new int[20][10];
-        kuutio = new Kuutio(200, 0, 40, 40, Color.BLACK);
+        kentta = new Kentta(20, 10);
+        
+        palikka = new Palikka(3, 0, varit, kentta, r.nextInt(7));
         paneeli.setPrefSize(400, 800);
-        paneeli.getChildren().add(kuutio);
+        paneeli.setStyle("-fx-background-color: black;");
+        paneeli.getChildren().addAll(palikka.getKuutiot());
+        for (int p = 0;p<piirrettyKentta.length;p++) {
+            piirrettyKentta[p] = new ArrayList<>();
+        }
         
         AnimationTimer ajastin = new AnimationTimer() {
             @Override
@@ -151,60 +94,76 @@ public class Main extends Application {
             }
         };
         ajastin.start();
-        
         return paneeli;
     }
     
+    private boolean palikkaalhaalla = true;
     private void update() {
         odotus+= 30;
-        if (odotus >= 1000) {
-            kuutio.liikuAlas();
-            odotus = 0;
+        
+        if (palikka.tormaaAlas()) {
+            if (!(palikka.getLiikutettu())) {
+                palikka.liikkumattomuus();
+                paneeli.getChildren().removeAll(palikka.getKuutiot());
+                uusiPalikka();
+            }
         }
+        if (palikka.liikutettualas()) {
+            palikka.liikkumattomuus();
+            paneeli.getChildren().removeAll(palikka.getKuutiot());
+            uusiPalikka();
+        }
+        if (odotus%900 == 0) {
+            if (!palikka.tormaaAlas()) {
+                palikka.liikuAlas();
+            }
+            if (palikka.tormaaAlas() && palikkaalhaalla) {
+                odotus = 30;
+                palikkaalhaalla = false;
+            }
+            if (odotus%900 == 0) {
+                if (palikka.tormaaAlas()) {
+
+                    palikka.liikutettuSetFalse();
+                    palikkaalhaalla = true;
+                }
+                odotus = 0;
+            }
+        }
+        
         boolean[] kerrokset = new boolean[20];
-        for (int q = 0;q<20;q++) {
+        for (int q = 0; q < 20; q++) {
             boolean kerros = true;
-            for (int w = 0;w<10;w++) {
-                Rectangle r = new Rectangle(w*40,q*40,40,40);
-                if (kentta[q][w] == 1) { 
+            for (int w = 0; w < 10; w++) {
+                if (kentta.getKohta(q, w) == 1) {
+                    Rectangle r = new Rectangle(40, 40, varit[kentta.getVari(q, w)]);
+                    r.setX(w*40);
+                    r.setY(q*40);
+                    piirrettyKentta[q].add(r);
                     paneeli.getChildren().add(r);
-                    kentta[q][w] = 2;
-                } else if (kentta[q][w] == 0) {
+                    kentta.setKohta(q, w, 2);
+                } else if (kentta.getKohta(q, w) == 0) {
                     kerros = false;
                 }
-                
             }
             if (kerros) {
                 kerrokset[q] = true;
             }
         }
-        for (int m = 0;m<kerrokset.length;m++) {
+        for (int m = 0; m < kerrokset.length; m++) {
             if (kerrokset[m]) {
-                kerrosVaihto(m);
-            }
-        }
-    }
-    
-    private void kerrosVaihto(int m) {
-        paneeli.getChildren().clear();
-        
-        for (int alku = m;alku>1;alku--) {
-            kentta[alku] = kentta[alku-1];
-            
-            for (int e = 0;e<kentta[alku].length;e++) {
-                if (kentta[alku][e] == 2) {
-                    kentta[alku][e] = 1;
+                for (int s = m;s>1;s--) {
+                    paneeli.getChildren().removeAll(piirrettyKentta[s]);
                 }
+                kentta.kerrosVaihto(m);
             }
         }
-        uusiKuuti();
-       
     }
     
     private Pane paneeli = new Pane();
     
     public static void main(String[] args) {
+       
         launch(args);
-        
     }
 }
