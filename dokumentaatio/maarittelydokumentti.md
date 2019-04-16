@@ -22,7 +22,7 @@ Kaikkien tunteman tetriksen tarkoitus on olla peli, joka tuo iloa kaikille pelaa
 + palikan muistiin laitto
 + ~~palkoiden kääntö~~
 + parempi ui
-+ koodi järjestellmällisempää
++ ~~koodi järjestellmällisempää~~
 + highscore muistissa 
 + nopeutuva pelin tahti
 

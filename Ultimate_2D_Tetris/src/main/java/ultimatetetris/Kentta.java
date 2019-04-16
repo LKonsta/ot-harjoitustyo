@@ -30,8 +30,14 @@ public class Kentta {
     }
    
     
-    void kerrosVaihto(int m) {
-        for (int alku = m; alku > 0; alku--) {
+    public void kerrosVaihto(int m) {
+        for (int alku = m; alku >= 0; alku--) {
+            if (alku == 0) {
+                int[] rivi = new int[10];
+                kentta[alku] = rivi;
+                varikentta[alku] = rivi;
+                continue;
+            }
             kentta[alku] = kentta[alku - 1];
             varikentta[alku] = varikentta[alku - 1];
             for (int e = 0; e < kentta[alku].length; e++) {

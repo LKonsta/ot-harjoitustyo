@@ -191,5 +191,13 @@ public class MainTest{
         }
     }
     
+    @Test
+    public void rivinpuhdistusTest() {
+        Kentta ke = new Kentta(20,10);
+        Kuutio k = new Kuutio(10, 5, 30, 30, Color.BLACK, ke);
+        
+        ke.kerrosVaihto(10);
+    }
+    
 
 }

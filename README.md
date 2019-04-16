@@ -12,6 +12,8 @@ palikan liikutus tapahtuu nuoli näppäimillä. palikan pyörittäminen tapahtuu
 
 Koodi jolla voi mavenin avulla avata sovelluksen. 
 
+[Ultimate2DTetris 1.0](https://github.com/LKonsta/ot-harjoitustyo/releases)
+
 ## Dokumentaatio
 
 [Tetris määrittely](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/maarittelydokumentti.md)
