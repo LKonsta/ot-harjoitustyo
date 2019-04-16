@@ -22,7 +22,7 @@ public class Logiikka {
     
     private static Kentta kentta;
     private static Palikka palikka;
-    private static int odotus = 0; 
+    public static int odotus = 0; 
     
     private static boolean palikkaalhaalla = true;
     

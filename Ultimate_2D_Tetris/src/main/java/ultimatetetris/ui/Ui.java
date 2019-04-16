@@ -91,7 +91,7 @@ public class Ui extends Application {
     }
     
     private static ArrayList<Rectangle>[] piirrettyKentta = new ArrayList[20];
-    Pane addTetrisPane() {
+    public static Pane addTetrisPane() {
         Random r = new Random();
         Color[] varit = {Color.YELLOW, Color.TEAL, Color.GREEN, Color.RED, Color.ORANGE, Color.BLUE, Color.PURPLE};
         
@@ -127,7 +127,6 @@ public class Ui extends Application {
     public static void piirrettyRemoveRivi(int q) {
         tetrisPane.getChildren().removeAll(piirrettyKentta[q]);
         piirrettyKentta[q] = piirrettyKentta[q - 1];
-
     }
     
     public static void tetrisRemove(Palikka palikka) {

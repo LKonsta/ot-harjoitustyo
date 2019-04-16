@@ -22,7 +22,9 @@ import static org.junit.Assert.*;
 import ultimatetetris.Main;
 import ultimatetetris.Kentta;
 import ultimatetetris.Kuutio;
+import ultimatetetris.Logiikka;
 import ultimatetetris.Palikka;
+import ultimatetetris.ui.Ui;
 
 /**
  *
@@ -194,10 +196,59 @@ public class MainTest{
     @Test
     public void rivinpuhdistusTest() {
         Kentta ke = new Kentta(20,10);
-        Kuutio k = new Kuutio(10, 5, 30, 30, Color.BLACK, ke);
+        ke.setKohta(10, 5, 2);
+        ke.setKohta(8, 5, 2);
+        ke.setVari(10, 5, 4);
+        ke.setVari(8, 5, 3);
         
         ke.kerrosVaihto(10);
+        assertEquals(0, ke.getKohta(10,5));
+        assertEquals(1, ke.getKohta(9,5));
+        assertEquals(0, ke.getVari(10,5));
+        assertEquals(3, ke.getVari(9,5));
+        
     }
     
+    @Test
+    public void onkotaysiriviTest() {
+        Ui.addTetrisPane();
+        Logiikka.uusiKentta();
+        for (int e = 0;e<10;e++) {
+            Logiikka.getKentta().setKohta(19, e, 1);
+        }
+        Logiikka.onkoTaysiRivi();
+        for (int e = 0; e < 10; e++) {
+            assertEquals(0, Logiikka.getKentta().getKohta(19, e));
+        }
+    }
+    
+    @Test
+    public void updateTest1() {
+        Ui.addTetrisPane();
+        Logiikka.uusiKentta();
+        for (int e = 0; e < 10; e++) {
+            Logiikka.getKentta().setKohta(19, e, 1);
+        }
+        Logiikka.update();
+        for (int e = 0; e < 10; e++) {
+            assertEquals(2, Logiikka.getKentta().getKohta(19, e));
+        }
+    }
+    
+    @Test
+    public void updateTest2() {
+        Ui.addTetrisPane();
+        Logiikka.uusiKentta();
+        for (int e = 0; e < 1000; e++) {
+            Logiikka.update();
+        }
+        boolean totta = true;
+        for (int e = 0; e < 10; e++) {
+            if (Logiikka.getKentta().getKohta(19, e) != 0) {
+                totta = false;
+            }
+        }
+        assertTrue(totta);
+    }
 
 }
