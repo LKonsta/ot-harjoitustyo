@@ -20,4 +20,4 @@ Koodi jolla voi mavenin avulla avata sovelluksen.
 
 [Testidokumentaatio](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/testausdokumentti.md)
 
-[Arkkitehtuuri](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/Ultimate2DTetris.md)
+[Arkkitehtuuri](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/Arkkitehtuuri.md)
