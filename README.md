@@ -8,7 +8,7 @@ Talla hetkellä voi pelin aloittaa jolloin ohjelma luo 400-800 kokoisen ikkunan 
 
 palikan liikutus tapahtuu nuoli näppäimillä. palikan pyörittäminen tapahtuu Z ja X nappuloilla.
 
-<code> mvn compile exec:java -Dexec.mainClass=ultimate_2d_tetris.ot.harjoitustyo.Main </code> 
+<code> mvn compile exec:java -Dexec.mainClass=ultimatetetris.Main </code> 
 
 Koodi jolla voi mavenin avulla avata sovelluksen. 
 

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ultimate_2d_tetris.ot.harjoitustyo;
+package ultimatetetris;
 
 import java.util.Arrays;
+import javafx.scene.shape.Rectangle;
 
 
 public class Kentta {
@@ -27,11 +28,12 @@ public class Kentta {
     public void setVari(int h, int w, int arvo) {
         varikentta[h][w] = arvo;
     }
+   
     
     void kerrosVaihto(int m) {
-        for (int alku = m; alku > 1; alku--) {
+        for (int alku = m; alku > 0; alku--) {
             kentta[alku] = kentta[alku - 1];
-            varikentta[alku] = varikentta[alku-1];
+            varikentta[alku] = varikentta[alku - 1];
             for (int e = 0; e < kentta[alku].length; e++) {
                 if (kentta[alku][e] == 2) {
                     kentta[alku][e] = 1;

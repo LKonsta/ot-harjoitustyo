@@ -19,10 +19,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ultimate_2d_tetris.ot.harjoitustyo.Main;
-import ultimate_2d_tetris.ot.harjoitustyo.Kentta;
-import ultimate_2d_tetris.ot.harjoitustyo.Kuutio;
-import ultimate_2d_tetris.ot.harjoitustyo.Palikka;
+import ultimatetetris.Main;
+import ultimatetetris.Kentta;
+import ultimatetetris.Kuutio;
+import ultimatetetris.Palikka;
 
 /**
  *
@@ -128,31 +128,31 @@ public class MainTest{
         Palikka p4 = new Palikka(3, 3, vari, kentta, 4);
         ArrayList<Kuutio> k4 = p4.getKuutiot();
 
-        assertEquals(4, k4.get(0).getKohtaX());
+        assertEquals(3, k4.get(0).getKohtaX());
         assertEquals(3, k4.get(0).getKohtaY());
 
-        assertEquals(4, k4.get(1).getKohtaX());
+        assertEquals(3, k4.get(1).getKohtaX());
         assertEquals(4, k4.get(1).getKohtaY());
 
-        assertEquals(4, k4.get(2).getKohtaX());
+        assertEquals(3, k4.get(2).getKohtaX());
         assertEquals(5, k4.get(2).getKohtaY());
 
-        assertEquals(5, k4.get(3).getKohtaX());
+        assertEquals(4, k4.get(3).getKohtaX());
         assertEquals(5, k4.get(3).getKohtaY());
         
         Palikka p5 = new Palikka(3, 3, vari, kentta, 5);
         ArrayList<Kuutio> k5 = p5.getKuutiot();
 
-        assertEquals(4, k5.get(0).getKohtaX());
+        assertEquals(5, k5.get(0).getKohtaX());
         assertEquals(3, k5.get(0).getKohtaY());
 
-        assertEquals(4, k5.get(1).getKohtaX());
+        assertEquals(5, k5.get(1).getKohtaX());
         assertEquals(4, k5.get(1).getKohtaY());
 
-        assertEquals(3, k5.get(2).getKohtaX());
+        assertEquals(4, k5.get(2).getKohtaX());
         assertEquals(5, k5.get(2).getKohtaY());
 
-        assertEquals(4, k5.get(3).getKohtaX());
+        assertEquals(5, k5.get(3).getKohtaX());
         assertEquals(5, k5.get(3).getKohtaY());
         
         Palikka p6 = new Palikka(3, 3, vari, kentta, 6);
@@ -175,15 +175,19 @@ public class MainTest{
     public void PalikkaPyoritystest1() {
         Color[] vari = {Color.YELLOW, Color.TEAL, Color.GREEN, Color.RED, Color.ORANGE, Color.BLUE, Color.PURPLE
         };
-        int[][][] muodot = {{{0,1,0},{0,1,0},{1,1,0}},
-                            {{0,0,0},{1,1,1},{0,0,1}},
-                            {{0,1,1},{0,1,0},{0,1,0}},
-                            {{1,0,0},{1,1,1},{0,0,0}}
+        int[][][] muodot = {{{0,0,1},{0,0,1},{0,1,1}},
+                            {{1,1,1},{0,0,1},{0,0,0}},
+                            {{1,1,0},{1,0,0},{1,0,0}},
+                            {{0,0,0},{1,0,0},{1,1,1}}
         };
         Palikka p = new Palikka(3, 3, vari, kentta, 5);
         for (int m = 0;m<muodot.length;m++) {
             assertArrayEquals(muodot[m], p.nykypalikka);
-            p.pyoritaOikea();
+            p.pyorita(1);
+        }
+        for (int m = 3; m >= 0; m--) {
+            p.pyorita(0);
+            assertArrayEquals(muodot[m], p.nykypalikka);
         }
     }
     

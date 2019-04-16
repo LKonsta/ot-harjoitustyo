@@ -1,4 +1,4 @@
-package ultimate_2d_tetris.ot.harjoitustyo;
+package ultimatetetris;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -7,8 +7,8 @@ public class Kuutio extends Rectangle {
 
     int x;
     int y;
-    int w = 40;
-    int h = 40;
+    int w = 30;
+    int h = 30;
     Kentta kentta;
     boolean tormays;
 
@@ -24,26 +24,26 @@ public class Kuutio extends Rectangle {
     }
 
     void liikuAlas() {
-        if (getTranslateY() + 40 < 800 && !(TormaaAlas())) {
-            setTranslateY(getTranslateY() + 40);
-            y += 40;
+        if (getTranslateY() + 30 < 600 && !tormaaAlas()) {
+            setTranslateY(getTranslateY() + 30);
+            y += 30;
         } else {
             tormays = true;
         }
     }
 
     void liikuVasen() {
-            if (!(TormaaVasen())) {
-                setTranslateX(getTranslateX() - 40);
-                x -= 40;
+            if (!tormaaVasen()) {
+                setTranslateX(getTranslateX() - 30);
+                x -= 30;
             }
         
     }
 
     void liikuOikea() {
-            if (!(TormaaOikea())) {
-                setTranslateX(getTranslateX() + 40);
-                x += 40;
+            if (!(tormaaOikea())) {
+                setTranslateX(getTranslateX() + 30);
+                x += 30;
             }
         
     }
@@ -55,15 +55,15 @@ public class Kuutio extends Rectangle {
 //                }
 //            }
 //        }
-    boolean TormaaAlas() {
-        if (getTranslateY() +40 >= 800) {
+    boolean tormaaAlas() {
+        if (getTranslateY() + 30 >= 600) {
             return true;
         }
         
-        return kentta.getKohta(((y / 40) + 1), (x / 40)) != 0;
+        return kentta.getKohta(((y / 30) + 1), (x / 30)) != 0;
     }
 
-    boolean TormaaVasen() {
+    boolean tormaaVasen() {
         if (getTranslateX() == 0) {
             return true;
         }
@@ -73,8 +73,8 @@ public class Kuutio extends Rectangle {
         return false;
     }
 
-    boolean TormaaOikea() {
-        if (getTranslateX() == 360) {
+    boolean tormaaOikea() {
+        if (getTranslateX() == 270) {
             return true;
         }
         if (kentta.getKohta(getKohtaY(), getKohtaX() + 1) != 0) {
@@ -83,16 +83,16 @@ public class Kuutio extends Rectangle {
         return false;
     }
     boolean tormaa() {
-        if (TormaaAlas()) {
+        if (tormaaAlas()) {
             return true;
         }
         return tormays;
     }
     public int getKohtaY() {
-        return (int) getTranslateY() / 40;
+        return (int) getTranslateY() / 30;
     }
     public int getKohtaX() {
-        return (int) getTranslateX() / 40;
+        return (int) getTranslateX() / 30;
     }
 
 }
