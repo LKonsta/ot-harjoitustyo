@@ -6,7 +6,6 @@
 package ultimatetetris;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import javafx.scene.paint.Color;
 
@@ -15,12 +14,8 @@ import javafx.scene.paint.Color;
  * @author khlehto
  */
 public class Palikka {
-    static Color[] varit = {Color.YELLOW, Color.TEAL, Color.GREEN, Color.RED, Color.ORANGE, Color.BLUE, Color.PURPLE};
-    static Random r = new Random();
-    
-    public Palikka luoPalikka() {
-        return new Palikka(3, 0, varit, kentta, r.nextInt(7));
-    }
+    Color[] varit = {Color.YELLOW, Color.TEAL, Color.GREEN, Color.RED, Color.ORANGE, Color.BLUE, Color.PURPLE};
+    Random r = new Random();
     
     boolean liikutettu;
     int liikutettuarvo = 0;
@@ -66,6 +61,10 @@ public class Palikka {
     
     public ArrayList<Kuutio> getKuutiot() {
         return kuutiot;
+    }
+    
+    public int[][] getMuoto() {
+        return muodot[muoto];
     }
 
     public void liikuVasen() {
@@ -212,6 +211,11 @@ public class Palikka {
     }
     int getLiikutettuArvo() {
         return liikutettuarvo;
+    }
+    
+    void resetPalikka() {
+        this.x = 3;
+        this.y = 0;
     }
    
 }

@@ -2,36 +2,44 @@
 package ultimatetetris.ui;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import ultimatetetris.Kentta;
-import ultimatetetris.Kuutio;
 import ultimatetetris.Logiikka;
-import ultimatetetris.Main;
 import ultimatetetris.Palikka;
 
 public class Ui extends Application {
 
+//    private void jonoupdate() {
+////        Palikka p = Logiikka.getJono();
+////        for (int e = 0; e < p.getKuutiot().size(); e++) {
+////            int x = p.getKuutiot().get(e).getKohtaX();
+////            int y = p.getKuutiot().get(e).getKohtaY();
+////            pane2.getChildren().add(new Rectangle((y * 20), (x * 20), 20, 20));
+////        }
+//    }
+
+//    private void muistiupdate() {
+//        Palikka p = Logiikka.getMuisti();
+//        int[][] m = p.getMuoto();
+//        for (int e = 0; e < m.length; e++) {
+//            for (int t = 0; t < m[e].length; t++) {
+//                if (m[e][t] == 1) {
+//                    pane.getChildren().add(new Rectangle((e * 20), (t * 20), 20, 20));
+//                }
+//            }
+//        }
+//    }
+
     Scene scene;
     Pane pane;
     Pane pane2;
-    static Pane tetrisPane;
+    Pane tetrisPane;
+    Logiikka l;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -62,78 +70,68 @@ public class Ui extends Application {
         scene.setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case LEFT:
-                    Logiikka.getPalikka().liikuVasen();
+                    l.getPalikka().liikuVasen();
                     break;
                 case RIGHT:
-                    Logiikka.getPalikka().liikuOikea();
+                    l.getPalikka().liikuOikea();
                     break;
                 case DOWN:
-                    Logiikka.getPalikka().liikuAlas();
+                    l.getPalikka().liikuAlas();
                     break;
                 case X:
-                    tetrisRemove(Logiikka.getPalikka());
-                    Logiikka.getPalikka().pyorita(0);
-                    tetrisAdd(Logiikka.getPalikka());
+                    palikkaRemove(l.getPalikka());
+                    l.getPalikka().pyorita(0);
+                    palikkaAdd(l.getPalikka());
                     break;
                 case Z:
-                    tetrisRemove(Logiikka.getPalikka());
-                    Logiikka.getPalikka().pyorita(1);
-                    tetrisAdd(Logiikka.getPalikka());
+                    palikkaRemove(l.getPalikka());
+                    l.getPalikka().pyorita(1);
+                    palikkaAdd(l.getPalikka());
+                    break;
+                case C:
+                    l.swapMuisti();
                     break;
 //                case SPACE:
 //                    kuutio.liikuPohja();
 //                    break;
             }
         });
-
+        l = new Logiikka();
         stage.setScene(scene);
         stage.show();
     }
     
-    private static ArrayList<Rectangle>[] piirrettyKentta = new ArrayList[20];
-    public static Pane addTetrisPane() {
-        Random r = new Random();
-        Color[] varit = {Color.YELLOW, Color.TEAL, Color.GREEN, Color.RED, Color.ORANGE, Color.BLUE, Color.PURPLE};
-        
-        tetrisPane = new Pane();
-        Logiikka.uusiKentta();
-        Logiikka.uusiPalikka();
-        tetrisPane.setPrefSize(300, 600);
-        tetrisPane.setStyle("-fx-background-color: black;");
-        
+    private ArrayList<Rectangle>[] piirrettyKentta = new ArrayList[20];
+    
+    public Pane addTetrisPane() {
         for (int p = 0; p < piirrettyKentta.length; p++) {
             piirrettyKentta[p] = new ArrayList<>();
         }
-        AnimationTimer ajastin = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                Logiikka.update();
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-        ajastin.start();
+        tetrisPane = new Pane();
+        tetrisPane.setPrefSize(300, 600);
+        tetrisPane.setStyle("-fx-background-color: black;");
+        
+        
         return tetrisPane;
     }
     
-    public static void piirettyAdd(int q, Rectangle r) {
+    public void piirettyAdd(int q, Rectangle r) {
         piirrettyKentta[q].add(r);
         tetrisPane.getChildren().add(r);
     }
     
-    public static void piirrettyRemoveRivi(int q) {
+    public void piirrettyRemoveRivi(int q) {
         tetrisPane.getChildren().removeAll(piirrettyKentta[q]);
         piirrettyKentta[q] = piirrettyKentta[q - 1];
     }
     
-    public static void tetrisRemove(Palikka palikka) {
+    public void palikkaRemove(Palikka palikka) {
         tetrisPane.getChildren().removeAll(palikka.getKuutiot());
     }
-    public static void tetrisAdd(Palikka palikka) {
-        tetrisPane.getChildren().addAll(palikka.getKuutiot());
+    public void palikkaAdd(Palikka palikka) {
+        if (tetrisPane != null) {
+            tetrisPane.getChildren().addAll(palikka.getKuutiot());
+        }
     }
     
 }

@@ -5,9 +5,6 @@
  */
 package ultimatetetris;
 
-import java.util.Arrays;
-import javafx.scene.shape.Rectangle;
-
 
 public class Kentta {
     int[][] kentta;

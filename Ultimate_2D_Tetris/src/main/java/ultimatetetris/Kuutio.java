@@ -96,6 +96,3 @@ public class Kuutio extends Rectangle {
     }
 
 }
-
-
-
