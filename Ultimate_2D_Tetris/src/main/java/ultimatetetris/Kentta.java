@@ -1,17 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ultimatetetris;
+
+import java.util.ArrayList;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 
 public class Kentta {
+    
+    private final ArrayList<ImageView>[] piirrettyKentta = new ArrayList[20];
     int[][] kentta;
     int[][] varikentta;
+    
     public Kentta(int h, int w) {
         kentta = new int[h][w];
         varikentta = new int[h][w];
+        for (int p = 0; p < piirrettyKentta.length; p++) {
+            piirrettyKentta[p] = new ArrayList<>();
+        }
     }
     public int getKohta(int h, int w) {
         return kentta[h][w];
@@ -25,24 +30,35 @@ public class Kentta {
     public void setVari(int h, int w, int arvo) {
         varikentta[h][w] = arvo;
     }
-   
     
-    public void kerrosVaihto(int m) {
+    public void kerrosVaihto(int m, Pane pane) {
         for (int alku = m; alku >= 0; alku--) {
             if (alku == 0) {
                 int[] rivi = new int[10];
                 kentta[alku] = rivi;
                 varikentta[alku] = rivi;
+                piirrettyKentta[alku] = new ArrayList<>();
                 continue;
             }
-            kentta[alku] = kentta[alku - 1];
-            varikentta[alku] = varikentta[alku - 1];
-            for (int e = 0; e < kentta[alku].length; e++) {
-                if (kentta[alku][e] == 2) {
-                    kentta[alku][e] = 1;
+            for (int i = 0; i < 10; i++) {
+                kentta[alku][i] = 0;
+                varikentta[alku][i] = 0;
+                if (kentta[alku - 1][i] == 2 || kentta[alku - 1][i] == 1) {
+                    kentta[alku][i] = 1;
+                    varikentta[alku][i] = getVari(alku - 1, i);
                 }
             }
+            pane.getChildren().removeAll(piirrettyKentta[alku]);
+            piirrettyKentta[alku] = new ArrayList<>();
         }
-
     }
+
+    public void addPiirrettyKentta(int q, ImageView r) {
+        piirrettyKentta[q].add(r);
+    }
+
+    void removePiirrettRivi(int k, Pane pane) {
+        pane.getChildren().removeAll(piirrettyKentta[k]);
+    }
+   
 }

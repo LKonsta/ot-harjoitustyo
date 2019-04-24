@@ -1,9 +1,9 @@
 package ultimatetetris;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Kuutio extends Rectangle {
+public class Kuutio extends ImageView {
 
     int x;
     int y;
@@ -12,8 +12,8 @@ public class Kuutio extends Rectangle {
     Kentta kentta;
     boolean tormays;
 
-    public Kuutio(int x, int y, int w, int h, Color vari, Kentta kentta) {
-        super(w, h, vari);
+    public Kuutio(int x, int y, int w, int h, Image vari, Kentta kentta) {
+        super(vari);
 
         this.kentta = kentta;
         this.x = x;
@@ -21,6 +21,7 @@ public class Kuutio extends Rectangle {
 
         setTranslateX(x);
         setTranslateY(y);
+        
     }
 
     void liikuAlas() {
@@ -33,34 +34,23 @@ public class Kuutio extends Rectangle {
     }
 
     void liikuVasen() {
-            if (!tormaaVasen()) {
-                setTranslateX(getTranslateX() - 30);
-                x -= 30;
-            }
-        
+        if (!tormaaVasen()) {
+            setTranslateX(getTranslateX() - 30);
+            x -= 30;
+        }   
     }
 
     void liikuOikea() {
-            if (!(tormaaOikea())) {
-                setTranslateX(getTranslateX() + 30);
-                x += 30;
-            }
-        
+        if (!tormaaOikea()) {
+            setTranslateX(getTranslateX() + 30);
+            x += 30;
+        }   
     }
-//        private void liikuPohja() {
-//            for (int m = (int) kuutio.getTranslateY()/40;m>0;m--) {
-//                if (kentta[m][(int) kuutio.getTranslateX()/40] != 0) {
-//                    setTranslateY(m*40);
-//                    y=m*40;
-//                }
-//            }
-//        }
     boolean tormaaAlas() {
         if (getTranslateY() + 30 >= 600) {
             return true;
         }
-        
-        return kentta.getKohta(((y / 30) + 1), (x / 30)) != 0;
+        return kentta.getKohta((getKohtaY() + 1), getKohtaX()) != 0;
     }
 
     boolean tormaaVasen() {

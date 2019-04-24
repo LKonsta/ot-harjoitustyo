@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Parent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -19,7 +20,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ultimatetetris.Main;
+import ultimatetetris.Peli;
 import ultimatetetris.Kentta;
 import ultimatetetris.Kuutio;
 import ultimatetetris.Logiikka;
@@ -195,13 +196,14 @@ public class MainTest{
     
     @Test
     public void rivinpuhdistusTest() {
+        Pane p = new Pane();
         Kentta ke = new Kentta(20,10);
         ke.setKohta(10, 5, 2);
         ke.setKohta(8, 5, 2);
         ke.setVari(10, 5, 4);
         ke.setVari(8, 5, 3);
         
-        ke.kerrosVaihto(10);
+        ke.kerrosVaihto(10, p);
         assertEquals(0, ke.getKohta(10,5));
         assertEquals(1, ke.getKohta(9,5));
         assertEquals(0, ke.getVari(10,5));

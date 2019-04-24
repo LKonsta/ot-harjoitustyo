@@ -1,22 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ultimatetetris;
 
 import java.util.ArrayList;
 import java.util.Random;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 
-/**
- *
- * @author khlehto
- */
 public class Palikka {
-    Color[] varit = {Color.YELLOW, Color.TEAL, Color.GREEN, Color.RED, Color.ORANGE, Color.BLUE, Color.PURPLE};
-    Random r = new Random();
     
+    Random r = new Random();
     boolean liikutettu;
     int liikutettuarvo = 0;
     
@@ -24,47 +14,42 @@ public class Palikka {
     public int y;
     public int x;
     int suunta;
+    Image[] vari;
     Kentta kentta;
-    Color[] vari;
-    int[][][] muodot = {{{1, 1}, {1, 1}},
-                        {{0, 0, 1, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}},
-                        {{0, 1, 0}, {0, 1, 1}, {0, 0, 1}},
-                        {{0, 1, 0}, {1, 1, 0}, {1, 0, 0}},
-                        {{1, 0, 0}, {1, 0, 0}, {1, 1, 0}},
-                        {{0, 0, 1}, {0, 0, 1}, {0, 1, 1}},
-                        {{0, 1, 0}, {1, 1, 1}, {0, 0, 0}}
+    int[][][] muodot = {{{0, 0, 0, 0}, {1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}},
+                        {{1, 0, 0}, {1, 1, 1}, {0, 0, 0}},
+                        {{0, 0, 1}, {1, 1, 1}, {0, 0, 0}},
+                        {{1, 1}, {1, 1}},
+                        {{0, 1, 1}, {1, 1, 0}, {0, 0, 0}},
+                        {{0, 1, 0}, {1, 1, 1}, {0, 0, 0}},
+                        {{1, 1, 0}, {0, 1, 1}, {0, 0, 0}}
     };
     
     public int[][] nykypalikka;
     public ArrayList<Kuutio> kuutiot = new ArrayList<>();
-
+    boolean painettu = false;
     
-    public Palikka(int x, int y, Color[] vari, Kentta kentta, int muoto) {
+    public Palikka(Image[] vari, Kentta kentta, int muoto) {
         
         this.liikutettuarvo = 0;
-        liikutettu = false;
-        this.suunta = 1;
+        this.liikutettu = true;
         this.muoto = muoto;
-        this.y = y;
-        this.x = x;
+        this.y = 0;
+        if (muoto == 3) {
+            this.x = 4;
+        } else {
+            this.x = 3;
+        }
         this.vari = vari;
         this.kentta = kentta;
         for (int h = 0; h < muodot[muoto].length; h++) {
             for (int w = 0; w < muodot[muoto][h].length; w++) {
                 if (muodot[muoto][h][w] == 1) {
-                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, 30, 30, vari[muoto], kentta));
+                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, 30, 30, vari[muoto], this.kentta));
                 }
             }
         }
         this.nykypalikka = muodot[muoto];
-    }
-    
-    public ArrayList<Kuutio> getKuutiot() {
-        return kuutiot;
-    }
-    
-    public int[][] getMuoto() {
-        return muodot[muoto];
     }
 
     public void liikuVasen() {
@@ -99,29 +84,21 @@ public class Palikka {
             
         }
     }
-    boolean painettu = false;
-    boolean liikutettualas() {
-        boolean nyt = painettu;
-        painettu = false;
-        return (nyt);
+    
+    void liikuPohja() {
+        while (!tormaaAlas()) {
+            liikuAlas();
+        }
     }
 
     public void pyorita(int s) {
         int[][] kopio = new int[nykypalikka.length][nykypalikka[0].length];
         for (int w = 0; w < nykypalikka.length; w++) {
             for (int h = 0; h < nykypalikka[0].length; h++) {
-                if (muoto == 4 || muoto == 5) {
-                    if (s == 0) {
-                        kopio[w][h] = nykypalikka[(nykypalikka.length - 1) - h][w];
-                    } else {
-                        kopio[w][h] = nykypalikka[h][(nykypalikka.length - 1) - w];
-                    }
+                if (s == 0) {
+                    kopio[w][h] = nykypalikka[(nykypalikka.length - 1) - h][w];
                 } else {
-                    if (s == 0) {
-                        kopio[w][h] = nykypalikka[h][(nykypalikka.length - 1) - w];
-                    } else {
-                        kopio[w][h] = nykypalikka[(nykypalikka.length - 1) - h][w];
-                    }
+                    kopio[w][h] = nykypalikka[h][(nykypalikka.length - 1) - w];
                 }
             }
         }
@@ -151,8 +128,6 @@ public class Palikka {
         return true;
     }
     
-    
-
     private void updatePalikka() {
         kuutiot.clear();
         for (int h = 0; h < nykypalikka.length; h++) {
@@ -163,16 +138,14 @@ public class Palikka {
             }
         }
     }
-
-
+    
     void liikkumattomuus() {
         for (int k = 0; k < kuutiot.size(); k++) {
-            int x = kuutiot.get(k).getKohtaX();
-            int y = kuutiot.get(k).getKohtaY();
-            kentta.setKohta(y, x, 1);
-            kentta.setVari(y, x, muoto);
+            int finalX = kuutiot.get(k).getKohtaX();
+            int finalY = kuutiot.get(k).getKohtaY();
+            kentta.setKohta(finalY, finalX, 1);
+            kentta.setVari(finalY, finalX, muoto);
         }
-        
     }
 
     private boolean tormaaOikea() {
@@ -201,21 +174,26 @@ public class Palikka {
         }
         return false;
     }
+    
+    boolean liikutettualas() {
+        boolean nyt = painettu;
+        painettu = false;
+        return (nyt);
+    }
 
-    void liikutettuSetFalse() {
-        liikutettu = false;
-        liikutettuarvo++;
-    }
-    boolean getLiikutettu() {
-        return liikutettu;
-    }
-    int getLiikutettuArvo() {
-        return liikutettuarvo;
+    int getMuotoN() {
+        return muoto;
     }
     
-    void resetPalikka() {
-        this.x = 3;
-        this.y = 0;
+    int[][] tiettyMuoto(int m) {
+        return muodot[m];
     }
    
+    public ArrayList<Kuutio> getKuutiot() {
+        return kuutiot;
+    }
+
+    public int[][] getMuoto() {
+        return muodot[muoto];
+    }
 }
