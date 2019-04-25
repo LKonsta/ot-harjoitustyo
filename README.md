@@ -16,7 +16,7 @@ Talla hetkellä voi pelin aloittaa jolloin ohjelma luo ikkunan jossa pystyy liik
 
 <code> mvn jxr:jxr checkstyle:checkstyle </code> checkstylen tarkistus koodi.
 
-[Ultimate2DTetris 1.0](https://github.com/LKonsta/ot-harjoitustyo/releases)
+[Ultimate2DTetris 1.1](https://github.com/LKonsta/ot-harjoitustyo/releases)
 
 ## Dokumentaatio
 

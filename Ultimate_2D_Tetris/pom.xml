@@ -60,7 +60,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>ultimatetetris.Main</mainClass>
+                                    <mainClass>ultimatetetris.ui.Ui</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
