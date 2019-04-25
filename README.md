@@ -18,6 +18,8 @@ Talla hetkellä voi pelin aloittaa jolloin ohjelma luo ikkunan jossa pystyy liik
 
 [Ultimate2DTetris 1.1](https://github.com/LKonsta/ot-harjoitustyo/releases)
 
+<code> java -jar Ultimate_2D_Tetris.jar </code> koodi jolla käynnistetään Release 1.1 versio Ultimate 2D Tetriksestä.
+
 ## Dokumentaatio
 
 [Tetris määrittely](https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/maarittelydokumentti.md)
