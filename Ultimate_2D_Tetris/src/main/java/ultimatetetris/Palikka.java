@@ -28,7 +28,13 @@ public class Palikka {
     public int[][] nykypalikka;
     public ArrayList<Kuutio> kuutiot = new ArrayList<>();
     boolean painettu = false;
-    
+    /**
+     * Luodaan uusi palikka. Palikan luonnissa käydään muodon antaman arvon mukaisesti läpi mihin kohtiin luodaan 4 Kuutiota jotka liikkuvat symmettrisesti.
+     * 
+     * @param vari annetaan array mahdollisia kuvia joita käytetään palikan luomisessa.
+     * @param kentta kerrotaan mihin kenttään palikka luodaan.
+     * @param muoto arvottu arvo jonka muotoinen palikka on.
+     */
     public Palikka(Image[] vari, Kentta kentta, int muoto) {
         
         this.liikutettuarvo = 0;
@@ -45,13 +51,15 @@ public class Palikka {
         for (int h = 0; h < muodot[muoto].length; h++) {
             for (int w = 0; w < muodot[muoto][h].length; w++) {
                 if (muodot[muoto][h][w] == 1) {
-                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, 30, 30, vari[muoto], this.kentta));
+                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, vari[muoto], this.kentta));
                 }
             }
         }
         this.nykypalikka = muodot[muoto];
     }
-
+    /**
+     * Liikutetaan tämän hetksitä palikaa vasemmalle. Liikkumisessa käydään läpi palikan kaikki kuutiot ja liikutetaan niitä yksitellen. 
+     */
     public void liikuVasen() {
         if (!tormaaVasen()) {
             x--;
@@ -61,7 +69,9 @@ public class Palikka {
             liikutettu = true;
         }
     }
-
+    /**
+     * Liikutetaan tämän hetkistä palikaa oikealle. Liikkumisessa käydään läpi palikan kaikki kuutiot ja liikutetaan niitä yksitellen.
+     */
     public void liikuOikea() {
         if (!tormaaOikea()) {
             x++;
@@ -71,7 +81,9 @@ public class Palikka {
             liikutettu = true;
         }
     }
-    
+    /**
+     * Liikutetaan tämän hetkistä palikkaa alas päin. Liikkumisessa käydään läpi palikan kaikki kuutiot ja liikutetaan niitä yksitellen.
+     */
     public void liikuAlas() {
         if (!tormaaAlas()) {
             y++;
@@ -90,7 +102,11 @@ public class Palikka {
             liikuAlas();
         }
     }
-
+    /**
+     * Pyörittää tällähetkellä kentällä olevaa palikkaa.
+     * jos kutsutaan arvolla 0 pyoritetään oikeaan, ja jos 1 pyritetään vasempaan.
+     * @param s tieto suunnasta mihin pyöritetään.
+     */
     public void pyorita(int s) {
         int[][] kopio = new int[nykypalikka.length][nykypalikka[0].length];
         for (int w = 0; w < nykypalikka.length; w++) {
@@ -133,7 +149,7 @@ public class Palikka {
         for (int h = 0; h < nykypalikka.length; h++) {
             for (int w = 0; w < nykypalikka[0].length; w++) {
                 if (nykypalikka[h][w] == 1) {
-                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, 30, 30, vari[muoto], kentta));
+                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, vari[muoto], kentta));
                 }
             }
         }

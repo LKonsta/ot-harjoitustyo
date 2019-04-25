@@ -17,8 +17,10 @@ public class Ui extends Application {
     Scene scene;
     Pane pane;
     Pane tetrisPane;
+    Pane aPane;
     Logiikka l;
     Kentta k;
+    Logiikka log;
     
     public static void main(String[] args) {
         launch(Ui.class);
@@ -28,14 +30,14 @@ public class Ui extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("Ultimate 2D Tetris");
         
-        Pane aPane = new Pane();
+        aPane = new Pane();
         aPane.setPrefSize(600, 600);
         aPane.setStyle("-fx-background-color: black;");
         
         Button aloitaNappi = new Button("Start Game");
         
         aloitaNappi.setOnAction((ActionEvent e) -> {
-            stage.setScene(peliNakyma(stage)); 
+            peliNakyma(stage); 
         });
         
         aPane.getChildren().add(aloitaNappi);
@@ -48,7 +50,7 @@ public class Ui extends Application {
         
     }
     
-    private Scene peliNakyma(Stage stage) {
+    private void peliNakyma(Stage stage) {
         BorderPane ruutu = new BorderPane();
 
         Image rVasen = new Image("reunukset_vasen.png");
@@ -80,9 +82,14 @@ public class Ui extends Application {
 
         scene = new Scene(ruutu);
 
-        l = new Logiikka(scene, pane, vasen, oikea);
+        log = new Logiikka(scene, pane, vasen, oikea);
+        stage.setScene(scene);
+        if (log.pelaa() == 1) {
+            scene = new Scene(aPane);
 
-        return (scene);
+            stage.setScene(scene);
+        } 
+        
     }
     
 }

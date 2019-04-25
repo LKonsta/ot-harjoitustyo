@@ -19,12 +19,13 @@ Kaikkien tunteman tetriksen tarkoitus on olla peli, joka tuo iloa kaikille pelaa
 + ~~taysien rivien poisto~~
 + ~~4 laatikon palikoiden eri muodostuminen~~
 + ~~rivin tunnistus~~
-+ palikan muistiin laitto
++ ~~palikan muistiin laitto~~
 + ~~palkoiden kääntö~~
-+ parempi ui
++ ~~parempi ui~~
 + ~~koodi järjestellmällisempää~~
++ ~~highscore tiedossa~~
 + highscore muistissa 
-+ nopeutuva pelin tahti
++ ~~nopeutuva pelin tahti~~
 
 ## Mahdolliset lisätoimivuudet
 

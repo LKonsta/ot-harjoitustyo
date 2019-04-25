@@ -7,12 +7,16 @@ public class Kuutio extends ImageView {
 
     int x;
     int y;
-    int w = 30;
-    int h = 30;
     Kentta kentta;
     boolean tormays;
-
-    public Kuutio(int x, int y, int w, int h, Image vari, Kentta kentta) {
+    /**
+     * Uuden kuution luominen 
+     * @param x x-koordinaatti.
+     * @param y y-koordinaatti.
+     * @param vari kuva joka sijaintiin asetetaan.
+     * @param kentta tieto kentästä jolle kuvat asetetaan.
+     */
+    public Kuutio(int x, int y, Image vari, Kentta kentta) {
         super(vari);
 
         this.kentta = kentta;
@@ -21,9 +25,10 @@ public class Kuutio extends ImageView {
 
         setTranslateX(x);
         setTranslateY(y);
-        
     }
 
+    
+    
     void liikuAlas() {
         if (getTranslateY() + 30 < 600 && !tormaaAlas()) {
             setTranslateY(getTranslateY() + 30);
@@ -78,9 +83,17 @@ public class Kuutio extends ImageView {
         }
         return tormays;
     }
+    /**
+     *  Hakee kuution kohdan y.
+     * @return palauttaa y kohdan.
+     */
     public int getKohtaY() {
         return (int) getTranslateY() / 30;
     }
+    /**
+     * Hakee kuution kohdan x
+     * @return palauttaa x kohdan.
+     */
     public int getKohtaX() {
         return (int) getTranslateX() / 30;
     }

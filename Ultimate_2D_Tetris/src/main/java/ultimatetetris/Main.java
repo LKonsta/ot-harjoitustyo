@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import ultimatetetris.ui.Ui;
 
-public class Peli extends Application {
+public class Main extends Application {
     
     public static void main(String[] args) {
         launch(Ui.class);

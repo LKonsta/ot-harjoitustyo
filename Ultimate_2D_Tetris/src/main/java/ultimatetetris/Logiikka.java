@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 
 public final class Logiikka {
     
+    Scene scene;
     Pane tetris;
     Pane vasen;
     Pane oikea;
@@ -76,6 +77,8 @@ public final class Logiikka {
     boolean peliKaynnissa;
     boolean peliJatkuu;
     boolean peliPaattyi;
+    boolean lopetaPeli;
+    int palautus;
     ImageView countKuva;
     int count = 5;
     boolean uusiCount;
@@ -83,6 +86,7 @@ public final class Logiikka {
     int ppKerros = 19;
     
     public Logiikka(Scene scene, Pane tetris, Pane vasen, Pane oikea) {
+        this.scene = scene;
         this.tetris = tetris;
         this.vasen = vasen;
         this.oikea = oikea;
@@ -96,6 +100,35 @@ public final class Logiikka {
         uusiPalikka();
         peliJatkuu = true;
         
+        kuuntelaNappaimistoa(scene, tetris);
+        
+    }
+
+    public int pelaa() {
+        
+        AnimationTimer ajastin = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (peliKaynnissa) {
+                    update();
+                } else if (peliJatkuu) {
+                    startCountdown();
+                } else if (peliPaattyi) {
+                    peliPaattyi();
+                }
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+        };
+        
+        ajastin.start();
+        return palautus;
+    }
+
+    private void kuuntelaNappaimistoa(Scene scene, Pane tetris1) {
         scene.setOnKeyPressed((KeyEvent e) -> {
             if (peliKaynnissa) {
                 switch (e.getCode()) {
@@ -112,15 +145,15 @@ public final class Logiikka {
                         tormaysTesti();
                         break;
                     case X:
-                        tetris.getChildren().removeAll(palikka.getKuutiot());
+                        tetris1.getChildren().removeAll(palikka.getKuutiot());
                         palikka.pyorita(0);
-                        tetris.getChildren().addAll(palikka.getKuutiot());
+                        tetris1.getChildren().addAll(palikka.getKuutiot());
                         palikkaLiikutettu = true;
                         break;
                     case Z:
-                        tetris.getChildren().removeAll(palikka.getKuutiot());
+                        tetris1.getChildren().removeAll(palikka.getKuutiot());
                         palikka.pyorita(1);
-                        tetris.getChildren().addAll(palikka.getKuutiot());
+                        tetris1.getChildren().addAll(palikka.getKuutiot());
                         palikkaLiikutettu = true;
                         break;
                     case C:
@@ -136,7 +169,6 @@ public final class Logiikka {
                         peliKaynnissa = false;
                         break;
                 }
-                
             } else {
                 switch (e.getCode()) {
                     case P:
@@ -145,25 +177,6 @@ public final class Logiikka {
                 }
             }
         });
-        
-        AnimationTimer ajastin = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (peliKaynnissa) {
-                    update();
-                } else if (peliJatkuu) {
-                    startCountdown();
-                } else if (peliPaattyi) {
-                    peliPaattyi();
-                }
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Peli.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } 
-        };
-        ajastin.start();
     }
     
     public void update() {
@@ -275,6 +288,7 @@ public final class Logiikka {
             ppCounter += 100;
         } else {
             peliPaattyi = false;
+            lopetaPeli = true;
         }
     }
     
@@ -467,6 +481,4 @@ public final class Logiikka {
     public Kentta getKentta() {
         return kentta;
     }
-
-
 }
