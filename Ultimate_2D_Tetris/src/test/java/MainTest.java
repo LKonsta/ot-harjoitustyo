@@ -6,30 +6,17 @@
 
 import java.util.ArrayList;
 import javafx.application.Application;
-import static javafx.application.ConditionalFeature.FXML;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.stage.WindowEvent;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import ultimatetetris.logiikka.Kentta;
 import ultimatetetris.logiikka.Kuutio;
 import ultimatetetris.logiikka.Logiikka;
-import ultimatetetris.logiikka.Main;
 import ultimatetetris.logiikka.Palikka;
-import ultimatetetris.ui.Ui;
 
 /**
  *
@@ -51,7 +38,7 @@ public class MainTest extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        this.stage = stage;
+        MainTest.stage = stage;
         
         BorderPane p0 = new BorderPane();
         Pane p1 = new Pane();
@@ -229,45 +216,5 @@ public class MainTest extends Application {
         assertEquals(0, ke.getVari(10,5));
         assertEquals(3, ke.getVari(9,5));
     }
-    
-//    @Test
-//    public void onkotaysiriviTest() {
-//        kentta = new Kentta(20, 10);
-//        for (int e = 0;e<10;e++) {
-//            kentta.setKohta(19, e, 1);
-//        }
-//        log.onkoTaysiRivi();
-//        for (int e = 0; e < 10; e++) {
-//            assertEquals(0, kentta.getKohta(19, e));
-//        }
-//    }
-//    
-//    @Test
-//    public void updateTest1() {
-//        Kentta k = log.getKentta();
-//        for (int e = 0; e < 10; e++) {
-//            log.kenttaSetKohta(19, e, 1);
-//        }
-//        log.updateKentta();
-//        for (int e = 0; e < 10; e++) {
-//            k = log.getKentta();
-//            assertEquals(2, log.kenttaGetKohta(19, e));
-//        }
-//    }
-//    
-//    @Test
-//    public void updateTest2() {
-//        kentta = new Kentta(20, 10);
-//        for (int e = 0; e < 1000; e++) {
-//            log.update();
-//        }
-//        boolean totta = true;
-//        for (int e = 0; e < 10; e++) {
-//            if (log.getKentta().getKohta(19, e) != 0) {
-//                totta = false;
-//            }
-//        }
-//        assertTrue(totta);
-//    }
 
 }

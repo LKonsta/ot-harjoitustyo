@@ -15,7 +15,10 @@ import java.util.*;
 public class HighscoreDAO {
     
     String db;
-     
+     /**
+      * tietokanna luonti os sitä ei ole.
+      * @param db tietokannalle nimi
+      */
     public HighscoreDAO(String db) {
         this.db = db;
         try {
@@ -34,7 +37,12 @@ public class HighscoreDAO {
         }
         
     }
-    
+    /**
+     * luodaan tietokantaan uusi tulos.
+     * tuloksessa on tiedossa nimi a pistemäärä.
+     * @param name tieto minkä niminen henkil
+     * @param score tieto henkilön saadusta pisteistä
+     */
     public void newHighscore(String name, int score) {
         try {
             Connection con = openConnection();
@@ -50,7 +58,12 @@ public class HighscoreDAO {
         }
         
     }
-    
+    /**
+     * Haetaan kaikki muistissa olevat tulokset.
+     * lista palautetaan muodossa "nimi:tulos"
+     * 
+     * @return palauttaa listan tuloksista.
+     */
     public List getHighscores() {
         List<String> scores = new ArrayList<>();
         try {
@@ -68,7 +81,11 @@ public class HighscoreDAO {
         }
         return scores;
     }
-    
+    /**
+     * yrittää avata tien tietokantaan.
+     * @return palauttaa tien.
+     * @throws Exception 
+     */
     public Connection openConnection() throws Exception {
         Connection con = DriverManager.getConnection("jdbc:sqlite:./" + db + ".db", "sa", "");
         return con;

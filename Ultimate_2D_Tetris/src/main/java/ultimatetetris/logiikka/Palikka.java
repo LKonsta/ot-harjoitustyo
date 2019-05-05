@@ -3,7 +3,6 @@ package ultimatetetris.logiikka;
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class Palikka {
     
@@ -39,6 +38,7 @@ public class Palikka {
     public int[][] nykypalikka;
     public ArrayList<Kuutio> kuutiot = new ArrayList<>();
     boolean painettu = false;
+    
     /**
      * Luodaan uusi palikka. Palikan luonnissa käydään muodon antaman arvon mukaisesti läpi mihin kohtiin luodaan 4 Kuutiota jotka liikkuvat symmettrisesti.
      * 
@@ -106,7 +106,9 @@ public class Palikka {
             
         }
     }
-    
+    /**
+     * Liikutetaan palikkaa alas kunnes tormaaAlas() funktio palauttaa truen.
+     */
     void liikuPohja() {
         while (!tormaaAlas()) {
             liikuAlas();
@@ -134,7 +136,14 @@ public class Palikka {
             updatePalikka();
         }
     }
-    
+    /**
+     * Testataan pyöritä funktion törmäys testit.
+     * Pyöritä funktiossa tehdään palikan muodosta kopio jonka törmäys testit tehdään tässä.
+     * törmäystä testataan kopiolla ensin ennen kuin aloitetaan muuttamaan oikeaiden kuutioiden sijainteja.
+     * 
+     * @param kopio luoto mahdollinen muoto
+     * @return palauttaa joko totta tai ei.
+     */
     private boolean kopioTormaa(int[][] kopio) {
         for (int h = 0; h < kopio.length; h++) {
             for (int w = 0; w < kopio[0].length; w++) {
@@ -153,7 +162,11 @@ public class Palikka {
         }
         return true;
     }
-    
+    /**
+     * Kun palikan pyöritys onnistuu pitää kuutioiden sijainnit päivittää.
+     * kuutio arraylistissa on tiedossa pelissä tällä hetkellä olevien kuutioiden piirto kohdat.
+     * nämä vaihdetaan uusiin riippuen pyöritys suunnasta.
+     */
     private void updatePalikka() {
         kuutiot.clear();
         for (int h = 0; h < nykypalikka.length; h++) {
@@ -165,7 +178,9 @@ public class Palikka {
             }
         }
     }
-    
+    /**
+     * Palikan siainti merkataan kenttään.
+     */
     void liikkumattomuus() {
         for (int k = 0; k < kuutiot.size(); k++) {
             int finalX = kuutiot.get(k).getKohtaX();
@@ -174,7 +189,11 @@ public class Palikka {
             kentta.setVari(finalY, finalX, muoto);
         }
     }
-
+    /**
+     * palikan törmäys testit oikeaan.
+     * palikka siis koostuu 4 kuutiosta joiden törmäykset tarkistetaan yksitellen.
+     * @return totta tai ei.
+     */
     private boolean tormaaOikea() {
         for (int k = 0; k < kuutiot.size(); k++) {
             if (kuutiot.get(k).tormaaOikea()) {
@@ -183,7 +202,11 @@ public class Palikka {
         }
         return false;
     }
-
+    /**
+     * palikan törmäys testit vasempaan.
+     * palikka siis koostuu 4 kuutiosta joiden törmäykset tarkistetaan yksitellen.
+     * @return totta tai ei.
+     */
     private boolean tormaaVasen() {
         for (int k = 0; k < kuutiot.size(); k++) {
             if (kuutiot.get(k).tormaaVasen()) {
@@ -192,7 +215,11 @@ public class Palikka {
         }
         return false;
     }
-
+    /**
+     * palikan törmäys testit alas.
+     * palikka siis koostuu 4 kuutiosta joiden törmäykset tarkistetaan yksitellen.
+     * @return totta tai ei.
+     */
     boolean tormaaAlas() {
         for (int k = 0; k < kuutiot.size(); k++) {
             if (kuutiot.get(k).tormaaAlas()) {
@@ -201,7 +228,11 @@ public class Palikka {
         }
         return false;
     }
-    
+    /**
+     * Testataan palikan liikuttamis mahdollisuuksia kun sitä ei voi liikuttaa enään alas päin.
+     * mahollistaa palikan liikuttamisen vielä toisten palikoiden alle.
+     * @return totta tai ei.
+     */
     boolean liikutettualas() {
         boolean nyt = painettu;
         painettu = false;

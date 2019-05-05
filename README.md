@@ -1,7 +1,5 @@
 # Ultimate 2D Tetris
 
-Tänne tulee selitys siitä mitä tämä **projekti** pitää *sisällään*.
-
 ## Ohjelman toimivuus
 
 Talla hetkellä voi pelin aloittaa jolloin ohjelma luo ikkunan jossa pystyy liikuttamaan yhtä, neljän kuution muodostavaa, palikkaa kerrallaan. Palikka tippuu automaattisesti ja sillä on törmäys tarkistukset seiniin ja muihin palikoihin. Kun palikkaa ei voi enään liikuttaa tallentuu se taulukkoon joka vastaa 10-20 kokoista pelikenttää, pelikentässä on myös värien tunnistus.

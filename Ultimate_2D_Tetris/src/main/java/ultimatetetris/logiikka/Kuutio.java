@@ -2,8 +2,6 @@ package ultimatetetris.logiikka;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Kuutio extends ImageView {
 
@@ -12,7 +10,6 @@ public class Kuutio extends ImageView {
     Kentta kentta;
     boolean tormays;
     
-
     static Image[] vari = {
         new Image("" + 1 + "_teema/vari_cyan.png"),
         new Image("" + 1 + "_teema/vari_blue.png"),
@@ -22,14 +19,13 @@ public class Kuutio extends ImageView {
         new Image("" + 1 + "_teema/vari_purple.png"),
         new Image("" + 1 + "_teema/vari_red.png"),
         new Image("" + 1 + "_teema/vari_grey.png")
-    };
-        
+    };        
     
     /**
      * Uuden kuution luominen 
      * @param x x-koordinaatti.
      * @param y y-koordinaatti.
-     * @param vari kuva joka sijaintiin asetetaan.
+     * @param muoto tieto minkä värinen palikka valitaan
      * @param kentta tieto kentästä jolle kuvat asetetaan.
      */
     public Kuutio(int x, int y, int muoto, Kentta kentta) {
@@ -43,7 +39,9 @@ public class Kuutio extends ImageView {
         setTranslateY(y);
     }
 
-    
+    /**
+     * Yksittäisen kuution liikutus alas.
+     */
     void liikuAlas() {
         if (getTranslateY() + 30 < 600 && !tormaaAlas()) {
             setTranslateY(getTranslateY() + 30);
@@ -52,51 +50,53 @@ public class Kuutio extends ImageView {
             tormays = true;
         }
     }
-
+    /**
+     * Yksittäisen kuution liikutus vasemmalle.
+     */
     void liikuVasen() {
         if (!tormaaVasen()) {
             setTranslateX(getTranslateX() - 30);
             x -= 30;
         }   
     }
-
+    /**
+     * Yksittäisen kuution liikutus oikealle.
+     */
     void liikuOikea() {
         if (!tormaaOikea()) {
             setTranslateX(getTranslateX() + 30);
             x += 30;
         }   
     }
+    /**
+     * Testataan pystyykö kuutio liikkumaan alas.
+     * @return joko totta tai ei.
+     */
     boolean tormaaAlas() {
         if (getTranslateY() + 30 >= 600) {
             return true;
         }
         return kentta.getKohta((getKohtaY() + 1), getKohtaX()) != 0;
     }
-
+    /**
+     * Testataan pystyykö kuutio liikkumaan vasempaan.
+     * @return joko totta tai ei.
+     */
     boolean tormaaVasen() {
         if (getTranslateX() == 0) {
             return true;
         }
-        if (kentta.getKohta(getKohtaY(), getKohtaX() - 1) != 0) {
-            return true;
-        }
-        return false;
+        return kentta.getKohta(getKohtaY(), getKohtaX() - 1) != 0;
     }
-
+    /**
+     * Testataan pystyykö kuutio liikkumaan oikeaan.
+     * @return joko totta tai ei.
+     */
     boolean tormaaOikea() {
         if (getTranslateX() == 270) {
             return true;
         }
-        if (kentta.getKohta(getKohtaY(), getKohtaX() + 1) != 0) {
-            return true;
-        }
-        return false;
-    }
-    boolean tormaa() {
-        if (tormaaAlas()) {
-            return true;
-        }
-        return tormays;
+        return kentta.getKohta(getKohtaY(), getKohtaX() + 1) != 0;
     }
     /**
      *  Hakee kuution kohdan y.

@@ -2,7 +2,9 @@
 
 ## Sovelluksen tarkoitus
 
-Kaikkien tunteman tetriksen tarkoitus on olla peli, joka tuo iloa kaikille pelaajille. Tetriksessä siis on 10 laatikon levyinen tunneli johon tippuu yksi kerrallaan neliän laatikon kokoisia palikoita. Nämä palikat ovat minkä tahansa muotoisia jota neljäsät eri palikasta voi muodostaa silloin kun kaikki näistä palikoista ovat toiseen palikkaan kyljessä kiinni.
+Kaikkien tunteman tetriksen tarkoitus on olla peli, joka tuo iloa kaikille pelaajille. 
+Tetriksessä siis on 10 laatikon levyinen tunneli johon tippuu yksi kerrallaan neliän laatikon kokoisia palikoita. 
+Nämä palikat ovat minkä tahansa muotoisia jota neljäsät eri palikasta voi muodostaa silloin kun kaikki näistä palikoista ovat toiseen palikkaan kyljessä kiinni.
 
 ## Käyttäjät 
 
@@ -24,7 +26,7 @@ Kaikkien tunteman tetriksen tarkoitus on olla peli, joka tuo iloa kaikille pelaa
 + ~~parempi ui~~
 + ~~koodi järjestellmällisempää~~
 + ~~highscore tiedossa~~
-+ highscore muistissa 
++ ~~highscore muistissa~~ 
 + ~~nopeutuva pelin tahti~~
 
 ## Mahdolliset lisätoimivuudet

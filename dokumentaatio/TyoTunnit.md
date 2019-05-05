@@ -9,4 +9,6 @@
 | 16.4. | 6 | Main puhdistusta ja paketteihin jakamista |
 | 24.4. | 7 | Logiikaan lisäystä ja grafiikkaa |
 | 25.4. | 4 | Putsausta ja Testien toiminnallisuutta |
-| yht | 38 ||
+| 4.5. | 13 | Loppu viimeistelyjä ja tietokannan lisäys | 
+| 5.5. | 5 | Loppu viimeistelyjä, testausta ja dokumentaatio päivitys |
+| yht | 56 ||
