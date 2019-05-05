@@ -1,4 +1,4 @@
-package ultimatetetris;
+package ultimatetetris.logiikka;
 
 import java.util.ArrayList;
 import javafx.scene.image.ImageView;

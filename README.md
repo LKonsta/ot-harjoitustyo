@@ -8,7 +8,7 @@ Talla hetkellä voi pelin aloittaa jolloin ohjelma luo ikkunan jossa pystyy liik
 
 <code> mvn package </code> jar paketin luomis koodi.
 
-<code> mvn compile exec:java -Dexec.mainClass=ultimatetetris.Peli </code> Koodi jolla voi mavenin avulla avata sovelluksen. 
+<code> mvn compile exec:java -Dexec.mainClass=ultimatetetris.ui.Ui </code> Koodi jolla voi mavenin avulla avata sovelluksen. 
 
 <code> mvn test </code> Testien suoritus vaikkakin tällä hetkellä pitää manuaalisesti sulkea ohjelma.
 
@@ -19,6 +19,21 @@ Talla hetkellä voi pelin aloittaa jolloin ohjelma luo ikkunan jossa pystyy liik
 [Ultimate2DTetris 1.1](https://github.com/LKonsta/ot-harjoitustyo/releases)
 
 <code> java -jar Ultimate_2D_Tetris.jar </code> koodi jolla käynnistetään Release 1.1 versio Ultimate 2D Tetriksestä.
+
+## Käyttö ohjeet.
+
+ASD - liikkuminen
+
+Z - pyöritä palikkaa vasemmalle
+
+X - pyöritä palikkaa oikealle
+
+C - laita palikka muistiin
+
+P - peli paussille
+
+SPACE - tiputa palikka suoraan alas
+
 
 ## Dokumentaatio
 

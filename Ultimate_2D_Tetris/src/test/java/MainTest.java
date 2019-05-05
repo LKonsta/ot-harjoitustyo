@@ -6,23 +6,29 @@
 
 import java.util.ArrayList;
 import javafx.application.Application;
+import static javafx.application.ConditionalFeature.FXML;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import ultimatetetris.Kentta;
-import ultimatetetris.Kuutio;
-import ultimatetetris.Logiikka;
-import ultimatetetris.Palikka;
+import ultimatetetris.logiikka.Kentta;
+import ultimatetetris.logiikka.Kuutio;
+import ultimatetetris.logiikka.Logiikka;
+import ultimatetetris.logiikka.Main;
+import ultimatetetris.logiikka.Palikka;
 import ultimatetetris.ui.Ui;
 
 /**
@@ -32,7 +38,12 @@ import ultimatetetris.ui.Ui;
 public class MainTest extends Application {
     
     static Kentta kentta;
-    static Image[] kuvat;
+
+    private static Stage getPrimaryStage() {
+        return stage;
+    }
+
+
     boolean kaynnissa;
     static Stage stage;
     Logiikka log;
@@ -40,27 +51,14 @@ public class MainTest extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        kuvat = new Image[8];
         this.stage = stage;
-        kuvat[0] = new Image("" + 1 + "_teema/vari_cyan.png");
-        kuvat[1] = new Image("" + 1 + "_teema/vari_blue.png");
-        kuvat[2] = new Image("" + 1 + "_teema/vari_orange.png");
-        kuvat[3] = new Image("" + 1 + "_teema/vari_yellow.png");
-        kuvat[4] = new Image("" + 1 + "_teema/vari_green.png");
-        kuvat[5] = new Image("" + 1 + "_teema/vari_purple.png");
-        kuvat[6] = new Image("" + 1 + "_teema/vari_red.png");
-        kuvat[7] = new Image("" + 1 + "_teema/vari_grey.png");
         
         BorderPane p0 = new BorderPane();
         Pane p1 = new Pane();
         p1.setPrefSize(300, 600);
-//        Pane p2 = new Pane();
-//        p1.setPrefSize(150, 600);
-//        Pane p3 = new Pane();
-//        p1.setPrefSize(150, 600);
+
         p0.setCenter(p1);
-//        p0.setLeft(p2);
-//        p0.setRight(p3);
+
         Scene s = new Scene(p0);
         log = new Logiikka(s, p1, p1, p1);
         stage.setScene(s);
@@ -71,18 +69,13 @@ public class MainTest extends Application {
     public static void setUp() {
         kentta = new Kentta(20,10);
         launch(MainTest.class);
-        
-    }
-    
-    @AfterClass
-    public static void closeUp() throws Exception {
-        Platform.exit();
     }
     
     @Test
     public void Palikkatesti1() {
+
         
-        Palikka p = new Palikka(kuvat, kentta, 1);
+        Palikka p = new Palikka(kentta, 1);
         for (int l = 0;l<20;l++) {
             p.liikuAlas();
         }
@@ -91,7 +84,7 @@ public class MainTest extends Application {
     }
     @Test
     public void Palikkatesti2() {
-        Palikka p = new Palikka(kuvat, kentta, 0);
+        Palikka p = new Palikka(kentta, 0);
         for (int l = 0; l < 20; l++) {
             p.liikuAlas();
             p.liikuVasen();
@@ -101,7 +94,7 @@ public class MainTest extends Application {
     }
     @Test
     public void Palikkatesti3() {
-        Palikka p = new Palikka(kuvat, kentta, 0);
+        Palikka p = new Palikka(kentta, 0);
         for (int l = 0; l < 20; l++) {
             p.liikuAlas();
             p.liikuOikea();
@@ -109,9 +102,10 @@ public class MainTest extends Application {
         assertEquals(6, p.x);
         assertEquals(18, p.y);
     }
+    
     @Test
     public void PalikkaLuomistesti1() {
-        Palikka p1 = new Palikka(kuvat, kentta, 0);
+        Palikka p1 = new Palikka(kentta, 0);
         ArrayList<Kuutio> k1 =  p1.getKuutiot();
         
         assertEquals(3, k1.get(0).getKohtaX());
@@ -126,7 +120,7 @@ public class MainTest extends Application {
         assertEquals(6, k1.get(3).getKohtaX());
         assertEquals(1, k1.get(3).getKohtaY());
         
-        Palikka p2 = new Palikka(kuvat, kentta, 1);
+        Palikka p2 = new Palikka(kentta, 1);
         ArrayList<Kuutio> k2 = p2.getKuutiot();
 
         assertEquals(3, k2.get(0).getKohtaX());
@@ -141,7 +135,7 @@ public class MainTest extends Application {
         assertEquals(5, k2.get(3).getKohtaX());
         assertEquals(1, k2.get(3).getKohtaY());
         
-        Palikka p3 = new Palikka(kuvat, kentta, 2);
+        Palikka p3 = new Palikka(kentta, 2);
         ArrayList<Kuutio> k3 = p3.getKuutiot();
 
         assertEquals(5, k3.get(0).getKohtaX());
@@ -156,7 +150,7 @@ public class MainTest extends Application {
         assertEquals(5, k3.get(3).getKohtaX());
         assertEquals(1, k3.get(3).getKohtaY());
         
-        Palikka p4 = new Palikka(kuvat, kentta, 3);
+        Palikka p4 = new Palikka(kentta, 3);
         ArrayList<Kuutio> k4 = p4.getKuutiot();
 
         assertEquals(4, k4.get(0).getKohtaX());
@@ -171,7 +165,7 @@ public class MainTest extends Application {
         assertEquals(5, k4.get(3).getKohtaX());
         assertEquals(1, k4.get(3).getKohtaY());
         
-        Palikka p5 = new Palikka(kuvat, kentta, 4);
+        Palikka p5 = new Palikka(kentta, 4);
         ArrayList<Kuutio> k5 = p5.getKuutiot();
 
         assertEquals(4, k5.get(0).getKohtaX());
@@ -186,7 +180,7 @@ public class MainTest extends Application {
         assertEquals(4, k5.get(3).getKohtaX());
         assertEquals(1, k5.get(3).getKohtaY());
         
-        Palikka p6 = new Palikka(kuvat, kentta, 5);
+        Palikka p6 = new Palikka(kentta, 5);
         ArrayList<Kuutio> k6 = p6.getKuutiot();
 
         assertEquals(4, k6.get(0).getKohtaX());
@@ -209,7 +203,7 @@ public class MainTest extends Application {
                             {{0,0,0},{1,1,1},{0,0,1}},
                             {{0,1,1},{0,1,0},{0,1,0}}
         };
-        Palikka p = new Palikka(kuvat, kentta, 1);
+        Palikka p = new Palikka(kentta, 1);
         for (int m = 0;m<muodot.length;m++) {
             assertArrayEquals(muodot[m], p.nykypalikka);
             p.pyorita(1);
@@ -234,7 +228,6 @@ public class MainTest extends Application {
         assertEquals(1, ke.getKohta(9,5));
         assertEquals(0, ke.getVari(10,5));
         assertEquals(3, ke.getVari(9,5));
-        
     }
     
 //    @Test
@@ -251,13 +244,14 @@ public class MainTest extends Application {
 //    
 //    @Test
 //    public void updateTest1() {
-//        kentta = new Kentta(20, 10);
+//        Kentta k = log.getKentta();
 //        for (int e = 0; e < 10; e++) {
-//            kentta.setKohta(19, e, 1);
+//            log.kenttaSetKohta(19, e, 1);
 //        }
 //        log.updateKentta();
 //        for (int e = 0; e < 10; e++) {
-//            assertEquals(2, kentta.getKohta(19, e));
+//            k = log.getKentta();
+//            assertEquals(2, log.kenttaGetKohta(19, e));
 //        }
 //    }
 //    

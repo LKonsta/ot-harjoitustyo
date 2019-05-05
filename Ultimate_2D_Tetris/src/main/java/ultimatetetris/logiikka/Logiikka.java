@@ -1,4 +1,4 @@
-package ultimatetetris;
+package ultimatetetris.logiikka;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 
 public final class Logiikka {
     
+    boolean graphiikka;
     Scene scene;
     Pane tetris;
     Pane vasen;
@@ -23,15 +24,6 @@ public final class Logiikka {
     private Palikka palikka;
     
     Random r = new Random();
-    Color[] varit = {
-        Color.CYAN, 
-        Color.BLUE, 
-        Color.ORANGE, 
-        Color.GOLD,
-        Color.LAWNGREEN, 
-        Color.PURPLE, 
-        Color.RED
-    };
     
     Image[] kuvat = {
         new Image("" + 1 + "_teema/vari_cyan.png"),
@@ -58,7 +50,10 @@ public final class Logiikka {
     };
     
     public int odotus = 0;
-    public int kerroin = 10;
+    public int defaultkerroin = 20;
+    public int[] kerroin = {
+        20, 24, 28, 32, 36, 40, 44, 48, 65, 80, 80, 80, 95, 95, 95, 110, 110, 110, 150, 150, 150, 200, 400
+    };
     public boolean palikkaVaihdettu = false;
     public boolean palikkaLiikutettu = false;
     public int palikkaLiikutettuKerrat = 0;
@@ -74,10 +69,10 @@ public final class Logiikka {
     ArrayList<ImageView> levelList;
     ArrayList<ImageView> linjaList;
     
-    boolean peliKaynnissa;
-    boolean peliJatkuu;
-    boolean peliPaattyi;
-    boolean lopetaPeli;
+    public boolean peliKaynnissa;
+    public boolean peliJatkuu;
+    public boolean peliPaattyi;
+    public boolean lopetaPeli;
     int palautus;
     ImageView countKuva;
     int count = 5;
@@ -86,10 +81,12 @@ public final class Logiikka {
     int ppKerros = 19;
     
     public Logiikka(Scene scene, Pane tetris, Pane vasen, Pane oikea) {
+        this.graphiikka = true;
         this.scene = scene;
         this.tetris = tetris;
         this.vasen = vasen;
         this.oikea = oikea;
+        
         kentta = new Kentta(20, 10);
         
         updateScore();
@@ -104,86 +101,67 @@ public final class Logiikka {
         
     }
 
-    public int pelaa() {
-        
-        AnimationTimer ajastin = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (peliKaynnissa) {
-                    update();
-                } else if (peliJatkuu) {
-                    startCountdown();
-                } else if (peliPaattyi) {
-                    peliPaattyi();
-                }
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } 
-        };
-        
-        ajastin.start();
-        return palautus;
-    }
-
     private void kuuntelaNappaimistoa(Scene scene, Pane tetris1) {
-        scene.setOnKeyPressed((KeyEvent e) -> {
-            if (peliKaynnissa) {
-                switch (e.getCode()) {
-                    case LEFT:
-                        palikka.liikuVasen();
-                        palikkaLiikutettu = true;
-                        break;
-                    case RIGHT:
-                        palikka.liikuOikea();
-                        palikkaLiikutettu = true;
-                        break;
-                    case DOWN:
-                        palikka.liikuAlas();
-                        tormaysTesti();
-                        break;
-                    case X:
-                        tetris1.getChildren().removeAll(palikka.getKuutiot());
-                        palikka.pyorita(0);
-                        tetris1.getChildren().addAll(palikka.getKuutiot());
-                        palikkaLiikutettu = true;
-                        break;
-                    case Z:
-                        tetris1.getChildren().removeAll(palikka.getKuutiot());
-                        palikka.pyorita(1);
-                        tetris1.getChildren().addAll(palikka.getKuutiot());
-                        palikkaLiikutettu = true;
-                        break;
-                    case C:
-                        if (!palikkaVaihdettu) {
-                            swapMuisti();
-                        }
-                        break;
-                    case SPACE:
-                        palikka.liikuPohja();
-                        tormaysTesti();
-                        break;
-                    case P:
-                        peliKaynnissa = false;
-                        break;
+        if (graphiikka) {
+            scene.setOnKeyPressed((KeyEvent e) -> {
+                if (peliKaynnissa) {
+                    switch (e.getCode()) {
+                        case LEFT:
+                            palikka.liikuVasen();
+                            palikkaLiikutettu = true;
+                            break;
+                        case RIGHT:
+                            palikka.liikuOikea();
+                            palikkaLiikutettu = true;
+                            break;
+                        case DOWN:
+                            palikka.liikuAlas();
+                            tormaysTesti();
+                            break;
+                        case X:
+                            tetris1.getChildren().removeAll(palikka.getKuutiot());
+                            palikka.pyorita(0);
+                            tetris1.getChildren().addAll(palikka.getKuutiot());
+                            palikkaLiikutettu = true;
+                            break;
+                        case Z:
+                            tetris1.getChildren().removeAll(palikka.getKuutiot());
+                            palikka.pyorita(1);
+                            tetris1.getChildren().addAll(palikka.getKuutiot());
+                            palikkaLiikutettu = true;
+                            break;
+                        case C:
+                            if (!palikkaVaihdettu) {
+                                swapMuisti();
+                            }
+                            break;
+                        case SPACE:
+                            palikka.liikuPohja();
+                            tormaysTesti();
+                            break;
+                        case P:
+                            peliKaynnissa = false;
+                            break;
+                    }
+                } else {
+                    switch (e.getCode()) {
+                        case P:
+                            peliJatkuu = true;
+                            break;
+                        case T:
+
+                    }
                 }
-            } else {
-                switch (e.getCode()) {
-                    case P:
-                        peliJatkuu = true;
-                        break;
-                }
-            }
-        });
+            });
+        }
     }
     
     public void update() {
-        odotus += kerroin;
+        odotus += defaultkerroin;
         if (odotus > 1000) {
             if (!palikkaLiikutettu || palikkaLiikutettuKerrat > 5) {
                 tormaysTesti();
+                palikkaLiikutettuKerrat = 0;
             }
             palikka.liikuAlas();
             odotus = 0;
@@ -242,21 +220,23 @@ public final class Logiikka {
     }
     
     public void uusiPalikka() {
-        palikkaVaihdettu = false;
-        Integer p = r.nextInt(7);
-        while (palikkaJono.contains(p) || palikkaJono.size() < 3) {
-            if (!palikkaJono.contains(p)) {
-                palikkaJono.addLast(p);
+        if (graphiikka) {
+            palikkaVaihdettu = false;
+            Integer p = r.nextInt(7);
+            while (palikkaJono.contains(p) || palikkaJono.size() < 3) {
+                if (!palikkaJono.contains(p)) {
+                    palikkaJono.addLast(p);
+                }
+                p = r.nextInt(7);
             }
-            p = r.nextInt(7);
+            palikkaJono.addLast(p);
+            int palikanmuoto = palikkaJono.poll();
+            palikka = new Palikka(kentta, palikanmuoto);
+            updateKentta();
+            tetris.getChildren().addAll(palikka.getKuutiot());
+            updateOikea();
+            onkoTilaa();
         }
-        palikkaJono.addLast(p);
-        int palikanmuoto = palikkaJono.poll();
-        palikka = new Palikka(kuvat, kentta, palikanmuoto);
-        updateKentta();
-        tetris.getChildren().addAll(palikka.getKuutiot());
-        updateOikea();
-        onkoTilaa();
     }
     
     private void onkoTilaa() {
@@ -271,7 +251,7 @@ public final class Logiikka {
         }
     }
     
-    private void peliPaattyi() {
+    public void peliPaattyi() {
         if (kentta.getVari(0, 0) != 7) {
             if (ppCounter > 1000) {
                 kentta.removePiirrettRivi(ppKerros, tetris);
@@ -312,8 +292,8 @@ public final class Logiikka {
                 tamankerran++;
             }
         }
-        if (tamankerran > 0) {
-            linjojenPisteet(tamankerran);
+        if (tamankerran > 0) { 
+            linjojenPisteet(tamankerran); 
         }
         updateKentta();
     }
@@ -321,7 +301,7 @@ public final class Logiikka {
     public void updateKentta() {
         for (int q = 0; q < 20; q++) {
             for (int w = 0; w < 10; w++) {
-                if (kentta.getKohta(q, w) == 1) {
+                if (kentta.getKohta(q, w) == 1 && graphiikka) {
                     ImageView ruutu = new ImageView(kuvat[kentta.getVari(q, w)]);
                     ruutu.setX(w * 30);
                     ruutu.setY(q * 30);
@@ -333,12 +313,19 @@ public final class Logiikka {
         }
     }
     
-    public void linjojenPisteet(int n) {
-        linjat += n;
+    public void tasoUpdate() {
         if (linjat >= (taso + 1) * 10) {
             taso++;
-            kerroin += 10;
+            if (taso<kerroin.length) {
+                defaultkerroin = kerroin[taso];
+            } else {
+            }
         }
+    }
+    
+    public void linjojenPisteet(int n) {
+        linjat += n;
+        tasoUpdate();
         switch (n) {
             case 1:
                 pisteet += (40 * (taso + 1));
@@ -372,39 +359,49 @@ public final class Logiikka {
         } else {
             muisti.addLast(v);
             updateVasen(m, v);
-            palikka = new Palikka(kuvat, kentta, muisti.poll());
+            palikka = new Palikka(kentta, muisti.poll());
         }
         tetris.getChildren().addAll(palikka.getKuutiot());
     }
     
     private void updateScore() {
-        if (pisteetList != null) {
-            oikea.getChildren().removeAll(pisteetList);
+        if (graphiikka) {
+            if (pisteetList != null) {
+                oikea.getChildren().removeAll(pisteetList);
+            }
+            pisteetList = new ArrayList<>();
+            String[] jaettu = Integer.toString(pisteet).split("");
+            pisteetList.addAll(updateNumeroKuvat(7, jaettu, 32, 167));
+            oikea.getChildren().addAll(pisteetList);
         }
-        pisteetList = new ArrayList<>();
-        String[] jaettu = Integer.toString(pisteet).split("");
-        pisteetList.addAll(updateNumeroKuvat(7, jaettu, 32, 167));
-        oikea.getChildren().addAll(pisteetList);
+    }
+    
+    public int getScore() {
+        return pisteet;
     }
     
     private void updateLevel() {
-        if (levelList != null) {
-            oikea.getChildren().removeAll(levelList);
+        if (graphiikka) {
+            if (levelList != null) {
+                oikea.getChildren().removeAll(levelList);
+            }
+            levelList = new ArrayList<>();
+            String[] jaettu = Integer.toString(taso).split("");
+            levelList.addAll(updateNumeroKuvat(2, jaettu, 32, 230));
+            oikea.getChildren().addAll(levelList);
         }
-        levelList = new ArrayList<>();
-        String[] jaettu = Integer.toString(taso).split("");
-        levelList.addAll(updateNumeroKuvat(2, jaettu, 32, 230));
-        oikea.getChildren().addAll(levelList);
     }
     
     private void updateLinjat() {
-        if (linjaList != null) {
-            oikea.getChildren().removeAll(linjaList);
+        if (graphiikka) {
+            if (linjaList != null) {
+                oikea.getChildren().removeAll(linjaList);
+            }
+            linjaList = new ArrayList<>();
+            String[] jaettu = Integer.toString(linjat).split("");
+            linjaList.addAll(updateNumeroKuvat(3, jaettu, 32, 294));
+            oikea.getChildren().addAll(linjaList);
         }
-        linjaList = new ArrayList<>();
-        String[] jaettu = Integer.toString(linjat).split("");
-        linjaList.addAll(updateNumeroKuvat(3, jaettu, 32, 294));
-        oikea.getChildren().addAll(linjaList);
     }
     
     private ArrayList<ImageView> updateNumeroKuvat(int n, String[] j, int h, int w) {
@@ -480,5 +477,13 @@ public final class Logiikka {
 
     public Kentta getKentta() {
         return kentta;
+    }
+    
+    public void kenttaSetKohta(int x, int y, int value) {
+        kentta.setKohta(x, y, value);
+    }
+    
+    public int kenttaGetKohta(int x, int y) {
+        return kentta.getKohta(x, y);
     }
 }

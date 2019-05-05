@@ -1,7 +1,9 @@
-package ultimatetetris;
+package ultimatetetris.logiikka;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Kuutio extends ImageView {
 
@@ -9,6 +11,20 @@ public class Kuutio extends ImageView {
     int y;
     Kentta kentta;
     boolean tormays;
+    
+
+    static Image[] vari = {
+        new Image("" + 1 + "_teema/vari_cyan.png"),
+        new Image("" + 1 + "_teema/vari_blue.png"),
+        new Image("" + 1 + "_teema/vari_orange.png"),
+        new Image("" + 1 + "_teema/vari_yellow.png"),
+        new Image("" + 1 + "_teema/vari_green.png"),
+        new Image("" + 1 + "_teema/vari_purple.png"),
+        new Image("" + 1 + "_teema/vari_red.png"),
+        new Image("" + 1 + "_teema/vari_grey.png")
+    };
+        
+    
     /**
      * Uuden kuution luominen 
      * @param x x-koordinaatti.
@@ -16,18 +32,17 @@ public class Kuutio extends ImageView {
      * @param vari kuva joka sijaintiin asetetaan.
      * @param kentta tieto kentästä jolle kuvat asetetaan.
      */
-    public Kuutio(int x, int y, Image vari, Kentta kentta) {
-        super(vari);
+    public Kuutio(int x, int y, int muoto, Kentta kentta) {
+        super(vari[muoto]);
 
         this.kentta = kentta;
         this.x = x;
         this.y = y;
-
+        
         setTranslateX(x);
         setTranslateY(y);
     }
 
-    
     
     void liikuAlas() {
         if (getTranslateY() + 30 < 600 && !tormaaAlas()) {

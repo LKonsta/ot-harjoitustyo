@@ -1,8 +1,9 @@
-package ultimatetetris;
+package ultimatetetris.logiikka;
 
 import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class Palikka {
     
@@ -14,8 +15,18 @@ public class Palikka {
     public int y;
     public int x;
     int suunta;
-    Image[] vari;
     Kentta kentta;
+    Image[] vari = {
+        new Image("" + 1 + "_teema/vari_cyan.png"),
+        new Image("" + 1 + "_teema/vari_blue.png"),
+        new Image("" + 1 + "_teema/vari_orange.png"),
+        new Image("" + 1 + "_teema/vari_yellow.png"),
+        new Image("" + 1 + "_teema/vari_green.png"),
+        new Image("" + 1 + "_teema/vari_purple.png"),
+        new Image("" + 1 + "_teema/vari_red.png"),
+        new Image("" + 1 + "_teema/vari_grey.png")
+    };
+    
     int[][][] muodot = {{{0, 0, 0, 0}, {1, 1, 1, 1}, {0, 0, 0, 0}, {0, 0, 0, 0}},
                         {{1, 0, 0}, {1, 1, 1}, {0, 0, 0}},
                         {{0, 0, 1}, {1, 1, 1}, {0, 0, 0}},
@@ -31,11 +42,10 @@ public class Palikka {
     /**
      * Luodaan uusi palikka. Palikan luonnissa käydään muodon antaman arvon mukaisesti läpi mihin kohtiin luodaan 4 Kuutiota jotka liikkuvat symmettrisesti.
      * 
-     * @param vari annetaan array mahdollisia kuvia joita käytetään palikan luomisessa.
      * @param kentta kerrotaan mihin kenttään palikka luodaan.
      * @param muoto arvottu arvo jonka muotoinen palikka on.
      */
-    public Palikka(Image[] vari, Kentta kentta, int muoto) {
+    public Palikka(Kentta kentta, int muoto) {
         
         this.liikutettuarvo = 0;
         this.liikutettu = true;
@@ -46,12 +56,12 @@ public class Palikka {
         } else {
             this.x = 3;
         }
-        this.vari = vari;
         this.kentta = kentta;
         for (int h = 0; h < muodot[muoto].length; h++) {
             for (int w = 0; w < muodot[muoto][h].length; w++) {
                 if (muodot[muoto][h][w] == 1) {
-                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, vari[muoto], this.kentta));
+                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, muoto, this.kentta));
+                    
                 }
             }
         }
@@ -149,7 +159,8 @@ public class Palikka {
         for (int h = 0; h < nykypalikka.length; h++) {
             for (int w = 0; w < nykypalikka[0].length; w++) {
                 if (nykypalikka[h][w] == 1) {
-                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, vari[muoto], kentta));
+                    kuutiot.add(new Kuutio((x + w) * 30, (y + h) * 30, muoto, kentta));
+                    
                 }
             }
         }
