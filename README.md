@@ -14,9 +14,9 @@ Talla hetkellä voi pelin aloittaa jolloin ohjelma luo ikkunan jossa pystyy liik
 
 <code> mvn jxr:jxr checkstyle:checkstyle </code> checkstylen tarkistus koodi.
 
-[Ultimate2DTetris 1.1](https://github.com/LKonsta/ot-harjoitustyo/releases)
+[Ultimate2DTetris 1.2](https://github.com/LKonsta/ot-harjoitustyo/releases) Final Release.
 
-<code> java -jar Ultimate_2D_Tetris.jar </code> koodi jolla käynnistetään Release 1.1 versio Ultimate 2D Tetriksestä.
+<code> java -jar Ultimate_2D_Tetris.jar </code> koodi jolla käynnistetään Release 1.2 versio Ultimate 2D Tetriksestä.
 
 ## Käyttö ohjeet.
 
