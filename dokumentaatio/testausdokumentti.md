@@ -2,6 +2,8 @@
 
 ## Testaus
 
+Tässä työssä testaus on jäänyt vähäiseksi.
+
 logiikka osuus työstä on ainoa jossa on testejä. 
 
 Tässäkin testaus on jäänyt vain 50 % sillä kirjoittamani koodi ei ole mitenkään hyvä laatuista, jonka takia testien tekeminen on hyvin vaikeaa.
@@ -17,6 +19,4 @@ Testauksessa on onglema ikkunan sulkemisessa.
 
 Checkstyle raportissa on ongelmia vain logiikka osion kanssa sillä sen pituus ylitää 500 rivin ja siellä on muutama liian pitkä metodi. 
 
-Checkstyle raportin errorien määrä ää kuitenkin vain 4, jos ui:ta ei oteta huomioon.
-
-Testauksessa on onglema ikkunan sulkemisessa.
+Checkstyle raportin errorien määrä on kuitenkin vain 4, jos ui:ta ei oteta huomioon.

@@ -43,6 +43,6 @@ Ohjelman avatessa ovat ohjelmassa nappulat pelin aloittamiseen ja highscore list
 
 ## Tietokanta kaavio
 
-Pelissä on siis vain yksi tietokanta joka pitää tiedossa pisteitä ja niiden saaneen nimen.
+Pelissä on siis vain yksi tietokanta joka pitää tiedossa pisteitä ja nimistä.
 
 <img src="https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/tietokanta.png" width="300">
