@@ -13,7 +13,7 @@ Jos jotain on opittu niin on se että on vielä paljon opittavaa ohjelmien ranke
 
 Tämän hetkinen arkkitehtuuri.
 
-<img src"https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.png" width="500">
+<img src="https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.png" width="700">
 
 ## Sovellus logiikka
 
@@ -33,7 +33,7 @@ Muisti toimii siis tavallaan kuin uusi palikka jonona mutta siellä on tiedossa 
 
 Kun peli luo uuden palikan ja jos löytää kohdasta johon se yrittää luoda sitä jo koordinaatiston arvon 2, loppuu peli.
 
-<img src"https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/logiikka.png" width="500">  
+<img src="https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/logiikka.png" width="700">  
 
 Sekvenssi kaavio saattaisi olla hieman hankala piirtää ohjelman monimutkaisuuden takia ja hieman turhaa olisi tehdä tätä esim yhden napin painamisen tapahtumaan. 
 

@@ -11,7 +11,7 @@ Testauksessa on onglema ikkunan sulkemisessa.
 
 ## jacoc report
 
-<img src="https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/jacoco report.png" width="500">
+<img src="https://github.com/LKonsta/ot-harjoitustyo/blob/master/dokumentaatio/jacoco report.png" width="900">
 
 ## Checkstyle
 
